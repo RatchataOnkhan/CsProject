@@ -1,0 +1,218 @@
+﻿@model CombustionCarGuideWeb.Models.Car
+
+@{
+    ViewData["Title"] = Model.ModelName;
+    var userIdStr = Context.Session.GetString("UserID");
+    var isLoggedIn = !string.IsNullOrEmpty(userIdStr);
+}
+
+
+
+<script>
+    function toggleFavorite(button) {
+        const carId = button.getAttribute("data-car-id");
+
+        fetch('/Cars/ToggleFavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+            },
+            body: JSON.stringify(carId)
+        })
+        .then(res => res.json())
+        .then(data => {
+            const icon = button.querySelector('i');
+            if (data.isFavorite) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+            } else {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+            }
+        });
+    }
+</script>
+
+<div class="container mt-navbar">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-primary fw-bold">@Model.ModelName</h2>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row g-4 align-items-start">
+        <!-- 🔹 รูปภาพ -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0">
+                 <img src="@Url.Content(Model.ImageUrl)" alt="@Model.ModelName" class="img-fluid w-100"
+    onerror="this.src='../assets/images/CAR/default.png'" style="height: 180px; object-fit: cover;">
+
+            </div>
+        </div>
+
+        <!-- 🔹 รายละเอียดหลัก -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="text-muted mb-2">💸 ราคา</h5>
+                        <h3 class="text-danger fw-bold">@Model.MSRP.ToString("N0") บาท</h3>
+
+                        <hr class="my-3" />
+
+                        <h6 class="fw-bold text-dark mb-2">📋 รายละเอียด</h6>
+                        <p class="text-muted">@Model.Description</p>
+
+                        <hr class="my-3" />
+
+                        <h6 class="fw-bold">⭐ คะแนนเฉลี่ย</h6>
+                        @if (Model.Ratings != null && Model.Ratings.Any())
+                        {
+                            var avg = Model.Ratings.Average(r => r.Star);
+                            <p class="fs-5 fw-bold text-success">@avg.ToString("0.0") / 5</p>
+                        }
+                        else
+                        {
+                            <p class="text-muted">ยังไม่มีคะแนน</p>
+                        }
+
+                        @if (isLoggedIn)
+                        {
+                            <div class="mt-3">
+                                <label class="fw-bold">⭐ ให้คะแนน:</label>
+                                <div class="d-flex gap-2 flex-wrap mt-2">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <form method="post" asp-action="RateCar" asp-controller="Cars" class="d-inline">
+                                            <input type="hidden" name="carId" value="@Model.Id" />
+                                            <input type="hidden" name="rating" value="@i" />
+                                            <button type="submit" class="btn btn-sm btn-outline-warning">@i ดาว</button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning mt-3">
+                                กรุณา <a href="@Url.Action("Login", "Account")">เข้าสู่ระบบ</a> ก่อนให้คะแนน
+                            </div>
+                        }
+                    </div>
+
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary mt-4">🔙 กลับหน้าแรก</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🛠 รายละเอียดเพิ่มเติม -->
+    <div class="mt-5">
+        <h4 class="fw-bold mb-3 border-bottom pb-2">🛠 ข้อมูลเชิงลึกของรถ</h4>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @{
+                var details = new (string Label, object? Value)[]
+                {
+                    ("🚘 ยี่ห้อ", Model.CarBrand),
+                    ("⚙ ประเภท", Model.Type),
+                    ("🔋 ระบบเครื่องยนต์", Model.EngineType),
+                    ("📅 ปีที่วางจำหน่าย", Model.ReleaseYear),
+                    ("🌍 ประเทศที่ผลิต", Model.Country),
+                    ("🎖 รุ่นย่อย", Model.TrimLevels),
+                    ("⛽ ความประหยัดน้ำมัน", Model.FuelEconomy),
+                    ("🧮 ค่าขับขี่โดยประมาณ", $"{Model.CostToDrive:N2} บาท"),
+                    ("👍 ข้อดี", Model.Pros),
+                    ("👎 ข้อเสีย", Model.Cons),
+                    ("🔧 ระบบเกียร์", Model.TransmissionType),
+                    ("🪑 จำนวนที่นั่ง", $"{Model.SeatingCapacity} คน"),
+                    ("📦 ความจุสัมภาระ", $"{Model.CargoCapacity:N2} ลิตร"),
+                    ("🎵 ระบบ Infotainment", Model.InfotainmentSystem),
+                    ("🛡 ระบบความปลอดภัย", Model.SafetyFeatures)
+                };
+            }
+
+            @foreach (var item in details)
+            {
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <strong>@item.Label:</strong> <br />
+                            <span class="text-muted">@item.Value</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- 💬 ความคิดเห็น -->
+    <div class="mt-5">
+        <h4 class="fw-bold mb-3 border-bottom pb-2">💬 ความคิดเห็นจากผู้ใช้งาน</h4>
+        @if (Model.Comments != null && Model.Comments.Any())
+        {
+            <div class="list-group">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="list-group-item list-group-item-action flex-column align-items-start shadow-sm">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1 text-primary">@comment.User?.Username</h6>
+                            <small class="text-muted">@comment.CreatedAt.ToString("g")</small>
+                        </div>
+                        <p class="mb-1">@comment.Text</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">ยังไม่มีความคิดเห็น</p>
+        }
+
+        @if (isLoggedIn)
+        {
+            <div class="mt-4">
+                <h5 class="fw-bold mb-3">✍️ แสดงความคิดเห็นของคุณ</h5>
+                <form method="post" asp-controller="Comment" asp-action="AddComment">
+                    <input type="hidden" name="CarId" value="@Model.Id" />
+                    <div class="mb-3">
+                        <textarea name="Text" class="form-control" rows="3" required placeholder="พิมพ์ความคิดเห็นที่นี่..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">ส่งความคิดเห็น</button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning mt-4">
+                ⚠ กรุณา <a href="@Url.Action("Login", "Account")">เข้าสู่ระบบ</a> เพื่อแสดงความคิดเห็น
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .mt-navbar {
+        padding-top: 100px;
+    }
+
+    @@media (max-width: 768px) {
+        .mt-navbar {
+            padding-top: 130px;
+        }
+    }
+
+    h2, h3, h4, h5, h6 {
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .list-group-item {
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+</style>

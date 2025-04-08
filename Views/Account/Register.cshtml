@@ -1,0 +1,42 @@
+﻿@model CombustionCarGuideWeb.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section id="new-cars" class="new-cars">
+  
+    <div class="container mt-navbar">
+        <h2>Register</h2>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+        {
+            <div class="alert alert-danger text-center">
+                @ViewData["ErrorMessage"]
+            </div>
+        }
+
+        <form method="post" action="@Url.Action("RegisterUser", "Account")">
+            @Html.AntiForgeryToken()
+            <div>
+                <label>Username:</label>
+                <input type="text" name="Username" required />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="Password" required />
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success" >Register</button>
+            </div>
+        </form>
+
+    </div>
+</section>

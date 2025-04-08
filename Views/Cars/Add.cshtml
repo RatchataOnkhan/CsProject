@@ -1,0 +1,22 @@
+﻿@model CombustionCarGuideWeb.Models.Car
+
+<h2>➕ เพิ่มรถใหม่</h2>
+<form asp-action="Add" method="post">
+    <div class="mb-3">
+        <label asp-for="Brand" class="form-label"></label>
+        <input asp-for="Brand" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ModelName" class="form-label"></label>
+        <input asp-for="ModelName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ReleaseYear" class="form-label"></label>
+        <input asp-for="ReleaseYear" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="MSRP" class="form-label"></label>
+        <input asp-for="MSRP" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">เพิ่มรถ</button>
+</form>

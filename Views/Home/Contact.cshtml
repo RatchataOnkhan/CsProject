@@ -1,0 +1,1009 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<section class="dark-mode-toggle text-center mt-3">
+    <button onclick="toggleDarkMode()" class="btn btn-dark">🌙 Toggle Dark Mode</button>
+</section>
+
+
+<!--service start -->
+<section id="service" class="service">
+    <div class="container">
+        <div class="service-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car"></i>
+                        </div>
+                        <h2><a href="#">largest dealership <span> of</span> car</a></h2>
+                        <p>
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car-repair"></i>
+                        </div>
+                        <h2><a href="#">unlimited repair warrenty</a></h2>
+                        <p>
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car-1"></i>
+                        </div>
+                        <h2><a href="#">insurence support</a></h2>
+                        <p>
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.container-->
+
+</section><!--/.service-->
+<!--service end-->
+
+
+<!-- Image Popup Container -->
+<div id="imagePopup" class="popup-overlay">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <img id="popupImage" class="popup-content">
+</div>
+
+<!-- CSS -->
+<style>
+    /* Popup Overlay */
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        text-align: center;
+    }
+
+    /* Popup Content */
+    .popup-content {
+        max-width: 90%;
+        max-height: 90%;
+        margin-top: 5%;
+    }
+
+    /* Close Button */
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    function openPopup(imgElement) {
+        var popup = document.getElementById("imagePopup");
+        var popupImg = document.getElementById("popupImage");
+
+        popup.style.display = "block";
+        popupImg.src = imgElement.src;
+    }
+
+    function closePopup() {
+        document.getElementById("imagePopup").style.display = "none";
+    }
+</script>
+
+
+<!--new-cars start -->
+<section id="new-cars" class="new-cars">
+    <div class="container">
+        <div class="section-header">
+            <p>checkout <span>the</span> latest cars</p>
+            <h2>newest cars</h2>
+        </div><!--/.section-header-->
+        <div class="new-cars-content">
+            <div class="owl-carousel owl-theme" id="new-cars-carousel">
+                <div class="new-cars-item">
+                    <div class="single-new-cars-item">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12">
+                                <div class="new-cars-img">
+                                    <img src="assets/images/new-cars-model/ncm1.png" alt="img" />
+                                </div><!--/.new-cars-img-->
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <div class="new-cars-txt">
+                                    <h2><a href="#">chevrolet camaro <span> za100</span></a></h2>
+                                    <p>
+                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                                        culpa qui officia deserunt mollit anim id est laborum.
+                                    </p>
+                                    <p class="new-cars-para2">
+                                        Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque
+                                        laudantium.
+                                    </p>
+                                    <button class="welcome-btn new-cars-btn"
+                                        onclick="openPopup(this.previousElementSibling.children[0])">
+                                        View Details
+                                    </button>
+                                </div><!--/.new-cars-txt-->
+                            </div><!--/.col-->
+                        </div><!--/.row-->
+                    </div><!--/.single-new-cars-item-->
+                </div><!--/.new-cars-item-->
+                <div class="new-cars-item">
+                    <div class="single-new-cars-item">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12">
+                                <div class="new-cars-img">
+                                    <img src="assets/images/new-cars-model/ncm2.png" alt="img" />
+                                </div><!--/.new-cars-img-->
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <div class="new-cars-txt">
+                                    <h2><a href="#">BMW series-3 wagon</a></h2>
+                                    <p>
+                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                                        culpa qui officia deserunt mollit anim id est laborum.
+                                    </p>
+                                    <p class="new-cars-para2">
+                                        Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque
+                                        laudantium.
+                                    </p>
+                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
+                                        view details
+                                    </button>
+                                </div><!--/.new-cars-txt-->
+                            </div><!--/.col-->
+                        </div><!--/.row-->
+                    </div><!--/.single-new-cars-item-->
+                </div><!--/.new-cars-item-->
+                <div class="new-cars-item">
+                    <div class="single-new-cars-item">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12">
+                                <div class="new-cars-img">
+                                    <img src="assets/images/new-cars-model/ncm3.png" alt="img" />
+                                </div><!--/.new-cars-img-->
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <div class="new-cars-txt">
+                                    <h2><a href="#">ferrari 488 superfast</a></h2>
+                                    <p>
+                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                                        culpa qui officia deserunt mollit anim id est laborum.
+                                    </p>
+                                    <p class="new-cars-para2">
+                                        Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque
+                                        laudantium.
+                                    </p>
+                                    <button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
+                                        view details
+                                    </button>
+                                </div><!--/.new-cars-txt-->
+                            </div><!--/.col-->
+                        </div><!--/.row-->
+                    </div><!--/.single-new-cars-item-->
+                </div><!--/.new-cars-item-->
+            </div><!--/#new-cars-carousel-->
+        </div><!--/.new-cars-content-->
+    </div><!--/.container-->
+
+</section><!--/.new-cars-->
+<!--new-cars end -->
+
+
+<!-- Image Popup Container -->
+<div id="imagePopup" class="popup-overlay">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <img id="popupImage" class="popup-content">
+</div>
+
+<script>
+    function openPopup(imgElement) {
+        var popup = document.getElementById("imagePopup");
+        var popupImg = document.getElementById("popupImage");
+
+        popup.style.display = "block";
+        popupImg.src = imgElement.src;
+    }
+
+    function closePopup() {
+        document.getElementById("imagePopup").style.display = "none";
+    }
+</script>
+
+
+<section class="filter-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="categorySelect">🚗 Filter by Category:</label>
+                <select id="categorySelect" class="form-control" onchange="filterByCategory()">
+                    <option value="all">All Cars</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Coupe">Coupe</option>
+                    <option value="Truck">Truck</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="sortSelect">🔄 Sort by:</label>
+                <select id="sortSelect" class="form-control" onchange="sortCars()">
+                    <option value="priceAsc">Price: Low to High</option>
+                    <option value="priceDesc">Price: High to Low</option>
+                    <option value="horsepowerAsc">Horsepower: Low to High</option>
+                    <option value="horsepowerDesc">Horsepower: High to Low</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Featured Cars Section -->
+<section id="featured-cars" class="featured-cars">
+    <div class="container">
+        <div class="section-header">
+            <p>Checkout <span>the</span> featured cars</p>
+            <h2>Featured Cars</h2>
+        </div>
+        </div><!--/.section-header-->
+        <div class="featured-cars-content">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="favorite-container">
+                                <span class="favorite-star" onclick="toggleFavorite(this, 'BMW 6-series Gran Coupe', '$89,395', 'assets/images/featured-cars/fc1.png')">⭐</span>
+                            </div>
+                            <div class="featured-cars-img">
+                                <img src="assets/images/featured-cars/fc1.png" alt="BMW 6-series Gran Coupe" onclick="openCarPopup('BMW 6-series Gran Coupe', '$89,395', 'assets/images/featured-cars/fc1.png', 'เครื่องยนต์ V6, 240HP, เกียร์ออโต้')">
+                            </div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>BMW 6-series Gran Coupe</h2>
+                            <h3>$89,395</h3>
+                            <p>เครื่องยนต์ V6, 240HP, เกียร์ออโต้</p>
+                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet...</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img">
+                                <img src="assets/images/featured-cars/fc2.png" alt="cars">
+                            </div>
+                            <div class="featured-model-info">
+                                <p>
+                                    model: 2017
+                                    <span class="featured-mi-span"> 3100 mi</span>
+                                    <span class="featured-hp-span"> 240HP</span>
+                                    automatic
+                                </p>
+                            </div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2><a href="#">chevrolet camaro <span>wmv20</span></a></h2>
+                            <h3>$66,575</h3>
+                            <p>
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                velit, sed quia non.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img">
+                                <img src="assets/images/featured-cars/fc3.png" alt="cars">
+                            </div>
+                            <div class="featured-model-info">
+                                <p>
+                                    model: 2017
+                                    <span class="featured-mi-span"> 3100 mi</span>
+                                    <span class="featured-hp-span"> 240HP</span>
+                                    automatic
+                                </p>
+                            </div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2><a href="#">lamborghini <span>v520</span></a></h2>
+                            <h3>$125,250</h3>
+                            <p>
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                velit, sed quia non.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img">
+                                <img src="assets/images/featured-cars/fc4.png" alt="cars">
+                            </div>
+                            <div class="featured-model-info">
+                                <p>
+                                    model: 2017
+                                    <span class="featured-mi-span"> 3100 mi</span>
+                                    <span class="featured-hp-span"> 240HP</span>
+                                    automatic
+                                </p>
+                            </div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2><a href="#">audi <span> a3</span> sedan</a></h2>
+                            <h3>$95,500</h3>
+                            <p>
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                velit, sed quia non.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img">
+                                <img src="assets/images/featured-cars/fc4.png" alt="cars">
+                            </div>
+                            <div class="featured-model-info">
+                                <p>
+                                    model: 2017
+                                    <span class="featured-mi-span"> 3100 mi</span>
+                                    <span class="featured-hp-span"> 240HP</span>
+                                    automatic
+                                </p>
+                            </div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2><a href="#">infiniti <span>z5</span></a></h2>
+                            <h3>$36,850</h3>
+                            <p>
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                velit, sed quia non.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img">
+                                <img src="assets/images/featured-cars/fc5.png" alt="cars">
+                            </div>
+                            <div class="featured-model-info">
+                                <p>
+                                    model: 2017
+                                    <span class="featured-mi-span"> 3100 mi</span>
+                                    <span class="featured-hp-span"> 240HP</span>
+                                    automatic
+                                </p>
+                            </div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2><a href="#">porsche <span>718</span> cayman</a></h2>
+                            <h3>$48,500</h3>
+                            <p>
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                velit, sed quia non.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img">
+                                <img src="assets/images/featured-cars/fc7.png" alt="cars">
+                            </div>
+                            <div class="featured-model-info">
+                                <p>
+                                    model: 2017
+                                    <span class="featured-mi-span"> 3100 mi</span>
+                                    <span class="featured-hp-span"> 240HP</span>
+                                    automatic
+                                </p>
+                            </div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2><a href="#"><span>bmw 8-</span>series coupe</a></h2>
+                            <h3>$56,000</h3>
+                            <p>
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                velit, sed quia non.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img">
+                                <img src="assets/images/featured-cars/fc8.png" alt="cars">
+                            </div>
+                            <div class="featured-model-info">
+                                <p>
+                                    model: 2017
+                                    <span class="featured-mi-span"> 3100 mi</span>
+                                    <span class="featured-hp-span"> 240HP</span>
+                                    automatic
+                                </p>
+                            </div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2><a href="#">BMW <span> x</span>series-6</a></h2>
+                            <h3>$75,800</h3>
+                            <p>
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                velit, sed quia non.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.container-->
+
+    <!-- Popup ข้อมูลรถ -->
+<div id="carPopup" class="popup-overlay">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closeCarPopup()">&times;</span>
+
+        <!-- Navbar -->
+        <nav class="popup-navbar">
+            <a href="#" onclick="showTab('pricing')">💰 Pricing</a>
+            <a href="#" onclick="showTab('review')">📝 Review</a>
+            <a href="#" onclick="showTab('compare')">📊 Compare</a>
+            <a href="#" onclick="showTab('specs')">⚙️ Specs</a>
+        </nav>
+
+        <!-- รูปภาพรถ -->
+        <div class="popup-header">
+            <img id="popupCarImage" class="popup-car-img">
+            <div class="popup-car-info">
+                <h2 id="popupCarTitle"></h2>
+                <h3 id="popupCarPrice"></h3>
+                <p id="popupCarDetails"></p>
+
+                <!-- Favorite & Rating -->
+                <div class="popup-actions">
+                    <span class="favorite-star" onclick="toggleFavoritePopup()">⭐ Favorite</span>
+                    <div class="rating">
+                        <span onclick="setRating(1)">⭐</span>
+                        <span onclick="setRating(2)">⭐</span>
+                        <span onclick="setRating(3)">⭐</span>
+                        <span onclick="setRating(4)">⭐</span>
+                        <span onclick="setRating(5)">⭐</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- See Local Pricing -->
+        <div class="popup-body">
+            <h3>💰 See Local Pricing</h3>
+            <select id="currencySelect" onchange="convertPrice()">
+                <option value="USD">USD - US Dollar</option>
+                <option value="THB">THB - Thai Baht</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="JPY">JPY - Japanese Yen</option>
+                <option value="GBP">GBP - British Pound</option>
+            </select>
+            <p>💲 Converted Price: <span id="convertedPrice">-</span></p>
+        </div>
+
+        <!-- รีวิว -->
+        <div id="reviewTab" class="popup-body">
+            <h3>💬 รีวิวจากผู้ใช้</h3>
+            <textarea id="reviewText" placeholder="เขียนรีวิวของคุณ..."></textarea>
+            <button onclick="submitReview()">ส่งรีวิว</button>
+            <div id="reviewsContainer"></div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS -->
+<style>
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        text-align: center;
+    }
+
+    .popup-content {
+        width: 60%;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: left;
+        margin: 5% auto;
+    }
+
+    .popup-navbar {
+        display: flex;
+        justify-content: space-around;
+        background: #f0f0f0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .popup-navbar a {
+        text-decoration: none;
+        font-size: 16px;
+        color: black;
+        padding: 5px 10px;
+    }
+
+    .popup-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .popup-car-img {
+        max-width: 40%;
+        height: auto;
+        margin-right: 20px;
+    }
+
+    .popup-car-info {
+        flex: 1;
+    }
+
+    .popup-actions {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .favorite-star {
+        cursor: pointer;
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    .rating span {
+        font-size: 24px;
+        cursor: pointer;
+        color: gray;
+        transition: color 0.3s;
+    }
+
+    .rating span.active {
+        color: gold;
+    }
+
+    .popup-body {
+        margin-top: 20px;
+    }
+
+    #reviewText {
+        width: 100%;
+        height: 80px;
+        padding: 5px;
+    }
+
+    .review-item {
+        background: #f9f9f9;
+        padding: 10px;
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 5px;
+    }
+
+    .delete-review {
+        cursor: pointer;
+        color: red;
+        font-size: 20px;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    let currentCar = "";
+
+    function openCarPopup(model, price, imgSrc, details) {
+        document.getElementById("popupCarTitle").innerText = model;
+        document.getElementById("popupCarPrice").innerText = price;
+        document.getElementById("popupCarImage").src = imgSrc;
+        document.getElementById("popupCarDetails").innerText = details;
+        document.getElementById("carPopup").style.display = "block";
+
+        currentCar = model;
+        loadReviews();
+        loadRating();
+    }
+
+    function closeCarPopup() {
+        document.getElementById("carPopup").style.display = "none";
+    }
+
+    function toggleFavoritePopup() {
+        alert("🚗 รถถูกเพิ่มในรายการโปรดแล้ว!");
+    }
+
+    function setRating(stars) {
+        let starsList = document.querySelectorAll(".rating span");
+        starsList.forEach((star, index) => {
+            star.classList.toggle("active", index < stars);
+        });
+
+        localStorage.setItem(`rating_${currentCar}`, stars);
+    }
+
+    function loadRating() {
+        let savedRating = localStorage.getItem(`rating_${currentCar}`);
+        let starsList = document.querySelectorAll(".rating span");
+
+        starsList.forEach((star, index) => {
+            star.classList.toggle("active", index < savedRating);
+        });
+    }
+
+    function submitReview() {
+        let reviewText = document.getElementById("reviewText").value.trim();
+        if (reviewText === "") {
+            alert("กรุณาเขียนรีวิวก่อนส่ง!");
+            return;
+        }
+
+        let reviews = JSON.parse(localStorage.getItem(`reviews_${currentCar}`)) || [];
+        let newReview = { text: reviewText, id: Date.now() };
+        reviews.push(newReview);
+        localStorage.setItem(`reviews_${currentCar}`, JSON.stringify(reviews));
+
+        document.getElementById("reviewText").value = "";
+        loadReviews();
+    }
+
+    function loadReviews() {
+        let reviewsContainer = document.getElementById("reviewsContainer");
+        reviewsContainer.innerHTML = "";
+
+        let reviews = JSON.parse(localStorage.getItem(`reviews_${currentCar}`)) || [];
+        reviews.forEach(review => {
+            let reviewItem = document.createElement("div");
+            reviewItem.classList.add("review-item");
+            reviewItem.innerHTML = `<span>${review.text}</span>
+                                    <span class="delete-review" onclick="deleteReview(${review.id})">🗑️</span>`;
+            reviewsContainer.appendChild(reviewItem);
+        });
+    }
+
+    function deleteReview(reviewId) {
+        let reviews = JSON.parse(localStorage.getItem(`reviews_${currentCar}`)) || [];
+        reviews = reviews.filter(review => review.id !== reviewId);
+        localStorage.setItem(`reviews_${currentCar}`, JSON.stringify(reviews));
+        loadReviews();
+    }
+
+    function convertPrice() {
+        let basePrice = parseFloat(document.getElementById("popupCarPrice").innerText.replace("$", "").replace(",", ""));
+        let currency = document.getElementById("currencySelect").value;
+
+        let rates = {
+            USD: 1, THB: 35, EUR: 0.9, JPY: 130, GBP: 0.8
+        };
+
+        let converted = (basePrice * rates[currency]).toFixed(2);
+        document.getElementById("convertedPrice").innerText = `${currency} ${converted}`;
+    }
+</script>
+
+
+
+
+    <!-- Car Comparison Section -->
+    <section id="compare-cars" class="compare-cars" style="margin-bottom: 50px;">
+        <div class="container">
+            <div class="section-header" style="margin-bottom: 30px;">
+                <p>compare <span>your</span> favorite cars</p>
+                <h2>car comparison</h2>
+            </div><!--/.section-header-->
+
+            <div class="search-box" style="margin-bottom: 30px;">
+                <input type="text" id="searchCar" class="form-control" placeholder="Search car brand or model..."
+                    onkeyup="filterCars()">
+            </div>
+
+            <div class="table-responsive" id="tableContainer" style="display: none; margin-bottom: 30px;">
+                <table class="table table-bordered" id="carTable">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Price</th>
+                            <th>Horsepower</th>
+                            <th>Acceleration (0-100 km/h)</th>
+                            <th>Transmission</th>
+                            <th>Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BMW 6-series Gran Coupe</td>
+                            <td>$89,395</td>
+                            <td>315 HP</td>
+                            <td>4.8 sec</td>
+                            <td>Automatic</td>
+                            <td><input type="checkbox" class="compare-check" value="BMW 6-series Gran Coupe"></td>
+                        </tr>
+                        <tr>
+                            <td>Chevrolet Camaro WMV20</td>
+                            <td>$66,575</td>
+                            <td>275 HP</td>
+                            <td>5.5 sec</td>
+                            <td>Manual</td>
+                            <td><input type="checkbox" class="compare-check" value="Chevrolet Camaro WMV20"></td>
+                        </tr>
+                        <tr>
+                            <td>Lamborghini V520</td>
+                            <td>$125,250</td>
+                            <td>640 HP</td>
+                            <td>3.2 sec</td>
+                            <td>Automatic</td>
+                            <td><input type="checkbox" class="compare-check" value="Lamborghini V520"></td>
+                        </tr>
+                        <tr>
+                            <td>Audi A3 Sedan</td>
+                            <td>$95,500</td>
+                            <td>228 HP</td>
+                            <td>6.0 sec</td>
+                            <td>Automatic</td>
+                            <td><input type="checkbox" class="compare-check" value="Audi A3 Sedan"></td>
+                        </tr>
+                        <tr>
+                            <td>Porsche 718 Cayman</td>
+                            <td>$48,500</td>
+                            <td>300 HP</td>
+                            <td>4.9 sec</td>
+                            <td>Automatic</td>
+                            <td><input type="checkbox" class="compare-check" value="Porsche 718 Cayman"></td>
+                        </tr>
+                        <tr>
+                            <td>BMW 8-series Coupe</td>
+                            <td>$56,000</td>
+                            <td>523 HP</td>
+                            <td>3.7 sec</td>
+                            <td>Automatic</td>
+                            <td><input type="checkbox" class="compare-check" value="BMW 8-series Coupe"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!--/.table-responsive-->
+
+            <button class="btn btn-primary" onclick="compareCars()">Compare Selected</button>
+
+            <div class="comparison-result" id="comparisonResult"
+                style="display: none; margin-top: 30px; margin-bottom: 50px;">
+                <h3>Comparison Result</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Price</th>
+                            <th>Horsepower</th>
+                            <th>Acceleration</th>
+                            <th>Transmission</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparisonBody">
+                    </tbody>
+                </table>
+            </div><!--/.comparison-result-->
+        </div><!--/.container-->
+    </section><!--/.compare-cars-->
+
+    <script>
+        function filterCars() {
+            var input, filter, table, tr, td, i, txtValue, visible = false;
+            input = document.getElementById("searchCar");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("carTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        visible = true;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+            document.getElementById("tableContainer").style.display = visible ? "block" : "none";
+        }
+
+        function compareCars() {
+            var checkboxes = document.querySelectorAll('.compare-check:checked');
+            var comparisonBody = document.getElementById("comparisonBody");
+            comparisonBody.innerHTML = "";
+
+            if (checkboxes.length < 2) {
+                alert("Please select at least two cars to compare.");
+                return;
+            }
+
+            checkboxes.forEach(function (checkbox) {
+                var row = checkbox.closest("tr").cloneNode(true);
+                row.removeChild(row.lastChild);
+                comparisonBody.appendChild(row);
+            });
+
+            document.getElementById("comparisonResult").style.display = "block";
+        }
+    </script>
+
+
+
+
+
+
+</section><!--/.featured-cars-->
+<section id="favorite-cars" class="favorite-cars" style="margin-top: 50px;">
+    <div class="container">
+        <div class="section-header">
+            <h2>🚗 รถยนต์ที่คุณชื่นชอบ</h2>
+        </div>
+        <div id="favorite-list" class="row">
+            <!-- รถที่ถูกเพิ่มเป็นรายการโปรดจะแสดงที่นี่ -->
+        </div>
+    </div>
+</section>
+
+<!--featured-cars end -->
+<!-- clients-say strat -->
+<section id="clients-say" class="clients-say">
+    <div class="container">
+        <div class="section-header">
+            <h2>what our clients say</h2>
+        </div><!--/.section-header-->
+        <div class="row">
+            <div class="owl-carousel testimonial-carousel">
+                <div class="col-sm-3 col-xs-12">
+                    <div class="single-testimonial-box">
+                        <div class="testimonial-description">
+                            <div class="testimonial-info">
+                                <div class="testimonial-img">
+                                    <img src="assets/images/clients/c1.png" alt="image of clients person" />
+                                </div><!--/.testimonial-img-->
+                            </div><!--/.testimonial-info-->
+                            <div class="testimonial-comment">
+                                <p>
+                                    Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem
+                                    aperiam, eaque ipsa quae ab illo inventore verit.
+                                </p>
+                            </div><!--/.testimonial-comment-->
+                            <div class="testimonial-person">
+                                <h2><a href="#">tomas lili</a></h2>
+                                <h4>new york</h4>
+                            </div><!--/.testimonial-person-->
+                        </div><!--/.testimonial-description-->
+                    </div><!--/.single-testimonial-box-->
+                </div><!--/.col-->
+                <div class="col-sm-3 col-xs-12">
+                    <div class="single-testimonial-box">
+                        <div class="testimonial-description">
+                            <div class="testimonial-info">
+                                <div class="testimonial-img">
+                                    <img src="assets/images/clients/c2.png" alt="image of clients person" />
+                                </div><!--/.testimonial-img-->
+                            </div><!--/.testimonial-info-->
+                            <div class="testimonial-comment">
+                                <p>
+                                    Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem
+                                    aperiam, eaque ipsa quae ab illo inventore verit.
+                                </p>
+                            </div><!--/.testimonial-comment-->
+                            <div class="testimonial-person">
+                                <h2><a href="#">romi rain</a></h2>
+                                <h4>london</h4>
+                            </div><!--/.testimonial-person-->
+                        </div><!--/.testimonial-description-->
+                    </div><!--/.single-testimonial-box-->
+                </div><!--/.col-->
+                <div class="col-sm-3 col-xs-12">
+                    <div class="single-testimonial-box">
+                        <div class="testimonial-description">
+                            <div class="testimonial-info">
+                                <div class="testimonial-img">
+                                    <img src="assets/images/clients/c3.png" alt="image of clients person" />
+                                </div><!--/.testimonial-img-->
+                            </div><!--/.testimonial-info-->
+                            <div class="testimonial-comment">
+                                <p>
+                                    Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem
+                                    aperiam, eaque ipsa quae ab illo inventore verit.
+                                </p>
+                            </div><!--/.testimonial-comment-->
+                            <div class="testimonial-person">
+                                <h2><a href="#">john doe</a></h2>
+                                <h4>washington</h4>
+                            </div><!--/.testimonial-person-->
+                        </div><!--/.testimonial-description-->
+                    </div><!--/.single-testimonial-box-->
+                </div><!--/.col-->
+            </div><!--/.testimonial-carousel-->
+        </div><!--/.row-->
+    </div><!--/.container-->
+
+</section><!--/.clients-say-->
+<!-- clients-say end -->
+<!--brand strat -->
+<section id="brand" class="brand">
+    <div class="container">
+        <div class="brand-area">
+            <div class="owl-carousel owl-theme brand-item">
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/images/brand/br1.png" alt="brand-image" />
+                    </a>
+                </div><!--/.item-->
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/images/brand/br2.png" alt="brand-image" />
+                    </a>
+                </div><!--/.item-->
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/images/brand/br3.png" alt="brand-image" />
+                    </a>
+                </div><!--/.item-->
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/images/brand/br4.png" alt="brand-image" />
+                    </a>
+                </div><!--/.item-->
+
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/images/brand/br5.png" alt="brand-image" />
+                    </a>
+                </div><!--/.item-->
+
+                <div class="item">
+                    <a href="#">
+                        <img src="assets/images/brand/br6.png" alt="brand-image" />
+                    </a>
+                </div><!--/.item-->
+            </div><!--/.owl-carousel-->
+        </div><!--/.clients-area-->
+
+    </div><!--/.container-->
+
+</section><!--/brand-->
+<!--brand end -->

@@ -1,0 +1,71 @@
+﻿@model List<CombustionCarGuideWeb.Models.Car>
+
+@{
+    ViewData["Title"] = "รถที่คุณถูกใจ";
+}
+
+
+<script>
+    function toggleFavorite(button) {
+        const carId = button.getAttribute("data-car-id");
+
+        fetch('/Cars/ToggleFavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+            },
+            body: JSON.stringify(carId)
+        })
+        .then(res => res.json())
+        .then(data => {
+            const icon = button.querySelector('i');
+            if (data.isFavorite) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+            } else {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+            }
+        });
+    }
+</script>
+
+<section id="new-cars" class="new-cars">
+    @Html.AntiForgeryToken()
+    <div class="container mt-navbar">
+
+
+        <h2 class="text-center fw-bold mb-4">⭐ รถที่คุณถูกใจ</h2>
+
+        @if (!Model.Any())
+        {
+
+            <div class="alert alert-warning text-center">ยังไม่มีรายการที่คุณกดดาวไว้</div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var car in Model)
+                {
+
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
+                                 style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5>@car.Brand @car.ModelName</h5>
+                                <p class="text-muted">@car.Description</p>
+                                <a href="@Url.Action("Details", "Cars", new { id = car.Id })" class="btn btn-outline-primary btn-sm">ดูรายละเอียด</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+
+</section>

@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "_Layout";
+}
+---
+File: Views/Cars/AdminPanel.cshtml
+
+@model List<CombustionCarGuideWeb.Models.Car>
+
+<h2>📋 จัดการรถยนต์</h2>
+<a href="@Url.Action("Add", "Cars")" class="btn btn-success mb-3">➕ เพิ่มรถใหม่</a>
+<table class="table table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>ยี่ห้อ</th>
+            <th>รุ่น</th>
+            <th>ปี</th>
+            <th>ราคา</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Id</td>
+                <td>@car.Brand</td>
+                <td>@car.ModelName</td>
+                <td>@car.ReleaseYear</td>
+                <td>@car.MSRP.ToString("N0")</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="@Url.Action("Edit", "Cars", "CarBrand")">แก้ไข</a>
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "Cars", "CarBrand")">ลบ</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

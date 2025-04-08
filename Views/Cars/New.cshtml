@@ -1,0 +1,151 @@
+﻿@model List<CombustionCarGuideWeb.Models.Car>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<style>
+    .mt-navbar {
+        padding-top: 100px;
+    }
+
+    @@media (max-width: 768px) {
+        .mt-navbar {
+            padding-top: 130px;
+        }
+    }
+
+    .car-box {
+        transition: transform 0.2s ease;
+    }
+
+        .car-box:hover {
+            transform: translateY(-5px);
+        }
+
+    .badge.bg-danger {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+
+    .favorite-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        padding: 8px 10px;
+        font-size: 16px;
+        color: #f0ad4e;
+        cursor: pointer;
+        z-index: 10;
+        transition: transform 0.2s ease;
+    }
+
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .favorite-btn.favorited i {
+            color: #ffc107;
+        }
+</style>
+
+@section Scripts {
+    <script>
+        /*
+        function toggleFavorite(button) {
+            const icon = button.querySelector('i');
+            button.classList.toggle('favorited');
+
+            if (button.classList.contains('favorited')) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+            } else {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+            }
+
+            const carId = button.getAttribute('data-car-id');
+            console.log(`Car ID ${carId} is ${button.classList.contains('favorited') ? 'favorited' : 'unfavorited'}`);
+
+            // TODO: AJAX request เพื่อบันทึกสถานะ favorite จริง
+        }*/
+
+    </script>
+}
+
+
+<script>
+    function toggleFavorite(button) {
+        if ('@ViewBag.LoginUrl' != ''){
+            window.location = '@ViewBag.LoginUrl';
+        }else {
+            const carId = button.getAttribute("data-car-id");
+
+            var sendParam = new Object();
+            sendParam.carId = carId ;
+            sendParam.__RequestVerificationToken =  $('input[name="__RequestVerificationToken"]').val();
+
+             $.ajax({
+                      url: "@Url.Action("ToggleFavorite", "Cars")",
+                      type: "post",
+                      dataType: "json",
+                      data: sendParam
+             }).done(function (data) {
+                const icon = button.querySelector('i');
+                if (data.isFavorite) {
+                    icon.classList.remove('fa-regular');
+                    icon.classList.add('fa-solid');
+                } else {
+                    icon.classList.remove('fa-solid');
+                    icon.classList.add('fa-regular');
+                }
+             });
+        }
+        
+    }
+</script>
+
+<section id="new-cars" class="new-cars">
+    @Html.AntiForgeryToken()
+    <div class="container mt-navbar">
+        <h2 class="text-primary fw-bold mb-4">🆕 รถมาใหม่</h2>
+
+        <div class="row g-4">
+            @foreach (var car in Model)
+            {
+                <div class="col-md-4 col-sm-6">
+                    <div class="border rounded-3 shadow-sm h-100 d-flex flex-column bg-white p-3 car-box">
+                        <div class="position-relative">
+                             <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
+       style="height: 180px; object-fit: cover;">
+
+                        </div>
+
+                        <button class="favorite-btn" data-car-id="@car.Id" onclick="toggleFavorite(this)">
+                            <i class="@(ViewBag.FavoriteCarIds != null && ((List<int>)ViewBag.FavoriteCarIds).Contains(car.Id) ? "fa-solid" : "fa-regular") fa-star"></i>
+                        </button>
+
+                        <div class="mt-3">
+                            <h5 class="bg-dark text-white p-2 mb-2 text-left">
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">ใหม่</span>
+                                @car.Brand @car.ModelName
+                            </h5>
+                            <p class="small text-muted">
+                                ปี: <strong>@car.ReleaseYear</strong><br />
+                                ราคา: <strong>@car.MSRP.ToString("N0")</strong> บาท<br />
+
+                            </p>
+                            <a href="@Url.Action("Details", "Cars", new { id = car.Id })"
+                               class="btn btn-outline-primary btn-sm mt-auto w-100">
+                                ดูรายละเอียด
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,118 @@
+﻿<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - CombustionCarGuideWeb</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    
+    @RenderSection("Styles", required: false)
+</head>
+
+
+@section Styles {
+    <style>
+        .service {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+
+        .single-service-item {
+            background-color: #fff;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .single-service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .single-service-icon i {
+            font-size: 3rem;
+            color: #0d6efd;
+            margin-bottom: 20px;
+        }
+
+        .single-service-item h2 a {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #212529;
+            text-decoration: none;
+        }
+
+        .single-service-item p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+    </style>
+}
+
+<section id="service" class="service">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-primary">บริการของเรา</h2>
+            <p class="text-muted">เรายินดีให้บริการเกี่ยวกับรถยนต์ทุกประเภท</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="single-service-item">
+                    <div class="single-service-icon">
+                        <i class="flaticon-car"></i>
+                    </div>
+                    <h2><a href="#">Largest Dealership</a></h2>
+                    <p>เครือข่ายตัวแทนจำหน่ายขนาดใหญ่พร้อมบริการครบวงจร</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="single-service-item">
+                    <div class="single-service-icon">
+                        <i class="flaticon-car-repair"></i>
+                    </div>
+                    <h2><a href="#">Unlimited Repair Warranty</a></h2>
+                    <p>รับประกันการซ่อมบำรุงไม่จำกัด เงื่อนไขตามที่กำหนด</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="single-service-item">
+                    <div class="single-service-icon">
+                        <i class="flaticon-car-1"></i>
+                    </div>
+                    <h2><a href="#">Insurance Support</a></h2>
+                    <p>บริการช่วยเหลือด้านประกันภัยรถยนต์จากผู้เชี่ยวชาญ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="service" class="service">
+    <div class="container">
+        <div class="service-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon">
+                            <i class="flaticon-car"></i>
+                        </div>
+                        <h2><a href="#">largest dealership <span> of</span> car</a></h2>
+                        <p>
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.
+                        </p>
+                    </div>
+                </div>
+                <!-- เพิ่มอีก 2 รายการคล้าย ๆ กัน -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<i class="fas fa-car"></i>
+<i class="fas fa-tools"></i>
+<i class="fas fa-shield-alt"></i>
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">

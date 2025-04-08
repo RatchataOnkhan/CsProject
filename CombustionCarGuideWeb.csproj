@@ -1,0 +1,207 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\BrandViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Account\Logout.cshtml" />
+    <Content Remove="Views\Cars\TypeView.cshtml" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\BYD Dolphin\1.png" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\BYD Dolphin\2.png" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\BYD Dolphin\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\BYD Dolphin\4.png" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\MG4 Electric\1.png" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\MG4 Electric\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\MG4 Electric\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\Nissan Leaf\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\Nissan Leaf\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\Nissan Leaf\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\Nissan Leaf\4.png" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\ORA Good Cat\1.png" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\ORA Good Cat\2.png" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\ORA Good Cat\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\Tesla Model 3\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\Tesla Model 3\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\Tesla Model 3\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\EV\Tesla Model 3\4.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Honda Accord eHEV\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Honda Accord eHEV\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Honda Accord eHEV\3.png" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Honda Civic Hatchback\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Honda Civic Hatchback\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Honda Civic Hatchback\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Lexus UX250h\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Lexus UX250h\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Lexus UX250h\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Nissan Kicks e-POWER\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Nissan Kicks e-POWER\2.png" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Nissan Kicks e-POWER\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Toyota Corolla Cross Hybrid\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Toyota Corolla Cross Hybrid\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Toyota Corolla Cross Hybrid\3.png" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Toyota Prius\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Toyota Prius\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Toyota Prius\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\HYBRID\Toyota Prius\4.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Ford Ranger\1.png" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Ford Ranger\2.png" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Ford Ranger\OIP.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Honda Civic Turbo RS\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Honda Civic Turbo RS\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Mazda 3 Sedan\1.jpeg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Mazda 3 Sedan\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Mazda 3 Sedan\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Nissan Almera\1.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Nissan Almera\2.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Nissan Almera\3.jpg" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Toyota Camry 2.5G\1.png" />
+    <Content Remove="wwwroot\assets\images\CAR\ICE\Toyota Camry 2.5G\2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Views\Account\Logout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Models\BrandViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Cars\TypeView.cshtml" />
+    <None Include="wwwroot\assets\css\animate.css" />
+    <None Include="wwwroot\assets\css\bootsnav.css" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css" />
+    <None Include="wwwroot\assets\css\flaticon.css" />
+    <None Include="wwwroot\assets\css\font-awesome.min.css" />
+    <None Include="wwwroot\assets\css\linearicons.css" />
+    <None Include="wwwroot\assets\css\owl.carousel.min.css" />
+    <None Include="wwwroot\assets\css\owl.theme.default.min.css" />
+    <None Include="wwwroot\assets\css\responsive.css" />
+    <None Include="wwwroot\assets\css\style.css" />
+    <None Include="wwwroot\assets\fonts\Flaticon.eot" />
+    <None Include="wwwroot\assets\fonts\Flaticon.svg" />
+    <None Include="wwwroot\assets\fonts\Flaticon.ttf" />
+    <None Include="wwwroot\assets\fonts\Flaticon.woff" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\assets\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\assets\fonts\Linearicons-Free.eot" />
+    <None Include="wwwroot\assets\fonts\Linearicons-Free.svg" />
+    <None Include="wwwroot\assets\fonts\Linearicons-Free.ttf" />
+    <None Include="wwwroot\assets\fonts\Linearicons-Free.woff" />
+    <None Include="wwwroot\assets\fonts\Linearicons-Free.woff2" />
+    <None Include="wwwroot\assets\images\brand\br1.png" />
+    <None Include="wwwroot\assets\images\brand\br2.png" />
+    <None Include="wwwroot\assets\images\brand\br3.png" />
+    <None Include="wwwroot\assets\images\brand\br4.png" />
+    <None Include="wwwroot\assets\images\brand\br5.png" />
+    <None Include="wwwroot\assets\images\brand\br6.png" />
+    <None Include="wwwroot\assets\images\CAR\EV\BYD Dolphin\1.png" />
+    <None Include="wwwroot\assets\images\CAR\EV\BYD Dolphin\2.png" />
+    <None Include="wwwroot\assets\images\CAR\EV\BYD Dolphin\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\BYD Dolphin\4.png" />
+    <None Include="wwwroot\assets\images\CAR\EV\MG4 Electric\1.png" />
+    <None Include="wwwroot\assets\images\CAR\EV\MG4 Electric\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\MG4 Electric\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\Nissan Leaf\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\Nissan Leaf\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\Nissan Leaf\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\Nissan Leaf\4.png" />
+    <None Include="wwwroot\assets\images\CAR\EV\ORA Good Cat\1.png" />
+    <None Include="wwwroot\assets\images\CAR\EV\ORA Good Cat\2.png" />
+    <None Include="wwwroot\assets\images\CAR\EV\ORA Good Cat\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\Tesla Model 3\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\Tesla Model 3\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\Tesla Model 3\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\EV\Tesla Model 3\4.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Honda Accord eHEV\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Honda Accord eHEV\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Honda Accord eHEV\3.png" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Honda Civic Hatchback\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Honda Civic Hatchback\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Honda Civic Hatchback\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Lexus UX250h\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Lexus UX250h\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Lexus UX250h\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Nissan Kicks e-POWER\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Nissan Kicks e-POWER\2.png" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Nissan Kicks e-POWER\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Toyota Corolla Cross Hybrid\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Toyota Corolla Cross Hybrid\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Toyota Corolla Cross Hybrid\3.png" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Toyota Prius\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Toyota Prius\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Toyota Prius\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\HYBRID\Toyota Prius\4.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Ford Ranger\1.png" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Ford Ranger\2.png" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Ford Ranger\OIP.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Honda Civic Turbo RS\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Honda Civic Turbo RS\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Mazda 3 Sedan\1.jpeg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Mazda 3 Sedan\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Mazda 3 Sedan\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Nissan Almera\1.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Nissan Almera\2.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Nissan Almera\3.jpg" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Toyota Camry 2.5G\1.png" />
+    <None Include="wwwroot\assets\images\CAR\ICE\Toyota Camry 2.5G\2.png" />
+    <None Include="wwwroot\assets\images\clients\c1.png" />
+    <None Include="wwwroot\assets\images\clients\c2.png" />
+    <None Include="wwwroot\assets\images\clients\c3.png" />
+    <None Include="wwwroot\assets\images\featured-cars\fc1.png" />
+    <None Include="wwwroot\assets\images\featured-cars\fc2.png" />
+    <None Include="wwwroot\assets\images\featured-cars\fc3.png" />
+    <None Include="wwwroot\assets\images\featured-cars\fc4.png" />
+    <None Include="wwwroot\assets\images\featured-cars\fc5.png" />
+    <None Include="wwwroot\assets\images\featured-cars\fc6.png" />
+    <None Include="wwwroot\assets\images\featured-cars\fc7.png" />
+    <None Include="wwwroot\assets\images\featured-cars\fc8.png" />
+    <None Include="wwwroot\assets\images\new-cars-model\ncm1.png" />
+    <None Include="wwwroot\assets\images\new-cars-model\ncm2.png" />
+    <None Include="wwwroot\assets\images\new-cars-model\ncm3.png" />
+    <None Include="wwwroot\assets\images\welcome-hero\welcome-banner.jpg" />
+    <None Include="wwwroot\assets\js\bootsnav.js" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\custom.js" />
+    <None Include="wwwroot\assets\js\feather.min.js" />
+    <None Include="wwwroot\assets\js\jquery.js" />
+    <None Include="wwwroot\assets\js\owl.carousel.min.js" />
+    <None Include="wwwroot\assets\logo\favicon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

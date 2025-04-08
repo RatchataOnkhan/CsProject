@@ -1,0 +1,153 @@
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "เลือกยี่ห้อรถ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<!-- Bootstrap Toast -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Toast Notification -->
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <div id="favToast" class="toast align-items-center text-white bg-success border-0" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="favToastMessage">เพิ่มลงรายการโปรดแล้ว!</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<section id="new-cars" class="new-cars">
+    <div class="container py-5 mt-5 min-vh-100">
+        <div class="container mt-navbar">
+            <h2 class="text-center fw-bold mb-4">เลือกยี่ห้อรถ</h2>
+
+            <div class="d-flex justify-content-center mb-4">
+                <input type="text" id="brandSearch" class="form-control w-50" placeholder="ค้นหายี่ห้อ...">
+            </div>
+
+            <div class="row justify-content-center mb-5" id="brandContainer">
+                @foreach (var brand in Model)
+                {
+                    var brandImageFile = $"~/assets/images/brand/{brand.ToLower()}.png";
+                    <div class="col-4 col-sm-3 col-md-2 mb-4 text-center brand-box" data-brand="@brand">
+                        <button class="btn btn-light border shadow-sm brand-btn" data-carbrand="@brand" title="@brand">
+                        </button>
+                        <div class="mt-2 fw-semibold">@brand</div>
+                    </div>
+                }
+            </div>
+
+            <div id="carResults" class="row g-4">
+                <!-- แสดงผลรถที่ค้นหาได้ -->
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.getElementById('brandSearch').addEventListener('input', function () {
+            const search = this.value.toLowerCase();
+            document.querySelectorAll('.brand-box').forEach(box => {
+                const brand = box.getAttribute('data-brand').toLowerCase();
+                box.style.display = brand.includes(search) ? 'block' : 'none';
+            });
+        });
+
+        document.querySelectorAll('.brand-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const brand = this.getAttribute('data-carbrand');
+                const container = document.getElementById('carResults');
+                container.innerHTML = '';
+
+                fetch(`/Cars/GetCarsByBrand?brand=${encodeURIComponent(brand)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length === 0) {
+                            container.innerHTML = `<div class="col-12 text-center text-muted animate__animated animate__fadeIn">
+                                                            <p>ไม่มีรถในยี่ห้อนี้</p>
+                                                        </div>`;
+                            return;
+                        }
+
+                        data.forEach(car => {
+                            const card = `
+            <div class="col-md-6 col-lg-4 animate__animated animate__zoomIn">
+                <div class="card h-100 shadow-sm">
+                    <img src="${car.imageUrl}" alt="${car.modelName}" class="img-fluid w-100" 
+                         onerror="this.src='../assets/images/CAR/default.png'"
+                         style="height: 180px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${car.modelName}</h5>
+                        <p class="card-text mb-1"><strong>เครื่องยนต์:</strong> ${car.engineType ?? '-'}</p>
+                        <p class="card-text mb-1"><strong>ปี:</strong> ${car.releaseYear ?? '-'}</p>
+                        <p class="card-text mb-2"><strong>ราคา:</strong> ${car.msrp ? car.msrp.toLocaleString() + ' บาท' : '-'}</p>
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                            <a href="/Cars/Details/${car.id}" class="btn btn-sm btn-outline-primary">รายละเอียด</a>
+                            <button class="favorite-btn shadow rounded-circle border-0 d-flex align-items-center justify-content-center"
+                                    data-carid="${car.id}" title="เพิ่มเป็นรถโปรด"
+                                    style="width: 40px; height: 40px; background-color: #fff7e6;">
+                                <i class="fa-regular fa-star" style="color: #f0ad4e; font-size: 18px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+                            container.innerHTML += card;
+                        });
+
+
+                        container.scrollIntoView({ behavior: "smooth", block: "start" });
+                    });
+            });
+        });
+
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.favorite-btn')) {
+                const btn = e.target.closest('.favorite-btn');
+                const icon = btn.querySelector('i');
+                const carId = btn.getAttribute('data-carid');
+
+                const isAdding = !icon.classList.contains('fa-solid');
+
+                icon.classList.toggle('fa-solid');
+                icon.classList.toggle('fa-regular');
+
+                icon.style.color = isAdding ? '#ffc107' : '#f0ad4e';
+                btn.style.backgroundColor = isAdding ? '#fff3cd' : '#fff7e6';
+
+                fetch('/Cars/ToggleFavorite', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify(carId)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        const toastEl = document.getElementById('favToast');
+                        const toastMsg = document.getElementById('favToastMessage');
+                        toastEl.classList.remove('bg-success', 'bg-danger');
+
+                        if (data.isFavorite) {
+                            toastMsg.textContent = "เพิ่มลงรายการโปรดแล้ว!";
+                            toastEl.classList.add('bg-success');
+                        } else {
+                            toastMsg.textContent = "ลบออกจากรายการโปรดแล้ว!";
+                            toastEl.classList.add('bg-danger');
+                        }
+
+                        const bsToast = new bootstrap.Toast(toastEl);
+                        bsToast.show();
+                    });
+            }
+        });
+    </script>
+}

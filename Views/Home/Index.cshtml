@@ -1,0 +1,861 @@
+﻿@using CombustionCarGuideWeb.Models
+@model List<CombustionCarGuideWeb.Models.Car>
+
+@{
+    ViewData["Title"] = "Home Page";
+    var featuredCars = ViewBag.FeaturedCars as List<Car> ?? new List<Car>();
+    var newCars = ViewBag.NewCars as List<Car> ?? new List<Car>();
+    var brands = ViewBag.Brands as IEnumerable<dynamic> ?? new List<dynamic>();
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    .favorite-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        padding: 8px 10px;
+        font-size: 16px;
+        color: #f0ad4e;
+        cursor: pointer;
+        z-index: 5;
+        transition: transform 0.2s ease;
+    }
+
+    .favorite-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .favorite-btn.favorited i {
+        color: #ffc107;
+    }
+</style>
+
+<script>
+    function toggleFavorite(button) {
+        const icon = button.querySelector('i');
+        button.classList.toggle('favorited');
+
+        if (button.classList.contains('favorited')) {
+            icon.classList.remove('fa-regular');
+            icon.classList.add('fa-solid');
+        } else {
+            icon.classList.remove('fa-solid');
+            icon.classList.add('fa-regular');
+        }
+
+        // ตัวอย่าง: บันทึกการ favorite ไปยัง server
+        const carId = button.getAttribute('data-car-id');
+        console.log(`Car ID ${carId} is ${button.classList.contains('favorited') ? 'favorited' : 'unfavorited'}`);
+
+        // TODO: ทำ AJAX เพื่อเก็บข้อมูลลงฐานข้อมูลได้
+    }
+</script>
+
+
+
+
+<style>
+    :root {
+        --main-color: #0d6efd;
+        /* เปลี่ยนได้ให้ตรงกับ navbar */
+        --section-padding: 60px;
+        --section-radius: 16px;
+        --section-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        --section-bg: #f8f9fa;
+        --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Section Blog Container */
+    .blog-section {
+        background-color: var(--section-bg);
+        border-radius: var(--section-radius);
+        padding: var(--section-padding) 30px;
+        margin-bottom: 60px;
+        box-shadow: var(--section-shadow);
+    }
+
+    .blog-section h2,
+    .blog-section h3 {
+        color: var(--main-color);
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    /* Card Styling */
+    .card {
+        border: none;
+        border-radius: 12px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--card-hover-shadow);
+    }
+
+    .card .card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .card .card-text {
+        font-size: 0.95rem;
+        color: #495057;
+    }
+
+    /* Badge on Card */
+    .model-card .badge {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+        opacity: 0.95;
+        border-radius: 10px;
+        background-color: var(--main-color) !important;
+    }
+
+    /* Buttons */
+    .btn-outline-dark,
+    .btn-dark,
+    .btn-outline-success,
+    .btn-outline-primary {
+        border-radius: 25px;
+        font-size: 0.9rem;
+        padding: 8px 18px;
+    }
+
+    /* Responsive Spacing */
+    @@media (max-width: 768px) {
+        .blog-section {
+            padding: 40px 20px;
+        }
+    }
+
+    /* Section Headers */
+    .section-header h2 {
+        font-weight: 700;
+        color: var(--main-color);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Section Layout Enhancements */
+    .section-block {
+        background-color: #ffffff;
+        border-radius: var(--section-radius);
+        padding: 40px 30px;
+        margin-bottom: 60px;
+        box-shadow: var(--section-shadow);
+    }
+
+    .section-block h3 {
+        color: var(--main-color);
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    /* Favorite Cars Section */
+    #favorite-cars {
+        background-color: var(--section-bg);
+        padding: 60px 0;
+    }
+
+    #favorite-cars .section-header h2 {
+        color: var(--main-color);
+    }
+
+    /* Testimonials */
+    #clients-say {
+        background-color: #ffffff;
+        padding: 60px 0;
+    }
+
+    /* Brand Carousel */
+    #brand {
+        background-color: #f1f3f5;
+        padding: 60px 0;
+    }
+
+    /* Search Select2 */
+    .select2-container--default .select2-selection--single {
+        border-radius: 8px;
+        padding: 6px 12px;
+        height: 48px;
+        font-size: 1rem;
+    }
+
+    .select2-selection__rendered {
+        line-height: 36px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 48px !important;
+    }
+</style>
+
+
+
+
+
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    var cars = ViewBag.Cars as List<CombustionCarGuideWeb.Models.Car>;
+
+}
+
+
+
+
+<!-- Image Popup Container -->
+<div id="imagePopup" class="popup-overlay">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <img id="popupImage" class="popup-content">
+</div>
+
+<!-- CSS -->
+<style>
+    /* Popup Overlay */
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        text-align: center;
+    }
+
+    /* Popup Content */
+    .popup-content {
+        max-width: 90%;
+        max-height: 90%;
+        margin-top: 5%;
+    }
+
+    /* Close Button */
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    function openPopup(imgElement) {
+        var popup = document.getElementById("imagePopup");
+        var popupImg = document.getElementById("popupImage");
+
+        popup.style.display = "block";
+        popupImg.src = imgElement.src;
+    }
+
+    function closePopup() {
+        document.getElementById("imagePopup").style.display = "none";
+    }
+</script>
+
+
+<!-- Section: รถมาใหม่ -->
+<section id="new-cars" class="new-cars mt-navbar">
+    <div class="container">
+        <div class="section-header text-center mb-4">
+            <p>checkout <span>the</span> latest cars</p>
+            <h2>newest cars</h2>
+        </div>
+
+        <div class="new-cars-content">
+            <div class="owl-carousel owl-theme" id="new-cars-carousel">
+                @foreach (var car in Model)
+                {
+                    <div class="new-cars-item">
+                        <div class="single-new-cars-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-7 col-sm-12">
+                                    <div class="new-cars-img position-relative">
+                                         <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
+       style="height: 180px; object-fit: cover;">
+
+                                        <!-- ปุ่มดาว -->
+                                        <button class="favorite-btn" data-car-id="@car.Id" onclick="toggleFavorite(this)">
+                                            <i
+                                                class="@(ViewBag.FavoriteCarIds != null && ((List<int>)ViewBag.FavoriteCarIds).Contains(car.Id) ? "fa-solid" : "fa-regular") fa-star"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-sm-12">
+                                    <div class="new-cars-txt">
+                                        <h2>
+                                            <a href="@Url.Action("Details", "Cars", new { id = car.Id })">
+                                                @car.Brand @car.ModelName
+                                            </a>
+                                        </h2>
+                                        <p>ปี: <strong>@car.ReleaseYear</strong><br />
+                                            ราคา: <strong>@car.MSRP.ToString("N0")</strong> บาท</p>
+                                        <p class="new-cars-para2 text-muted">@car.Description</p>
+                                        <button class="welcome-btn new-cars-btn"
+                                            onclick="window.location.href='@Url.Action("Details", "Cars", new { id = car.Id })'">
+                                            ดูรายละเอียด
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Owl Carousel Scripts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#new-cars-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            responsive: {
+                0: { items: 1 },
+                768: { items: 1 },
+                992: { items: 1 }
+            }
+        });
+    });
+</script>
+
+<style>
+    .mt-navbar {
+        padding-top: 100px;
+    }
+
+    @@media (max-width: 768px) {
+        .mt-navbar {
+            padding-top: 130px;
+        }
+    }
+
+    .new-cars-img img {
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .new-cars-btn {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .new-cars-btn:hover {
+        background-color: #444;
+    }
+</style>
+
+
+
+
+
+<!-- Image Popup Container -->
+<div id="imagePopup" class="popup-overlay">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <img id="popupImage" class="popup-content">
+</div>
+
+<script>
+    function openPopup(imgElement) {
+        var popup = document.getElementById("imagePopup");
+        var popupImg = document.getElementById("popupImage");
+
+        popup.style.display = "block";
+        popupImg.src = imgElement.src;
+    }
+
+    function closePopup() {
+        document.getElementById("imagePopup").style.display = "none";
+    }
+</script>
+
+
+
+<<!-- 🔥 Section: Car Overview with Unified Style -->
+    <style>
+        .section-block {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-block h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .car-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .car-card .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .car-card .card-text {
+            font-size: 0.95rem;
+        }
+
+        .btn-outline-primary,
+        .btn-outline-success {
+            border-radius: 20px;
+            font-size: 0.9rem;
+            padding: 6px 16px;
+        }
+
+        .btn-link {
+            font-weight: 500;
+            text-decoration: underline;
+        }
+
+        .brand-list .list-group-item {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            font-weight: 500;
+        }
+    </style>
+
+    <div class="container mt-5">
+
+        <!-- 🔍 Search Section -->
+        <div class="section-block">
+            <h3>🔍 ค้นหารถยนต์</h3>
+            <form asp-action="Search" asp-controller="Cars" method="get">
+                <div class="row g-2">
+
+                    <!-- 🔽 dropdown รุ่นรถ (พิมพ์ค้นหาได้) -->
+                    <div class="col-md-10">
+                        <select id="modelName" name="modelName" class="form-control form-control-lg select2">
+                            <option value="">-- เลือกรุ่นรถ --</option>
+                            @if (ViewBag.ModelNameList != null)
+                            {
+                                foreach (var item in ViewBag.ModelNameList as SelectList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <!-- 🔍 ปุ่มค้นหา -->
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-outline-primary btn-lg w-100">ค้นหา</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+        <!-- ⭐ Featured Cars Section -->
+        <div class="container mt-navbar">
+            <h2 class="fw-bold text-center mb-4">⭐ Featured Cars</h2>
+
+            <!-- Owl Carousel wrapper -->
+            <div class="owl-carousel owl-theme" id="featured-cars-carousel">
+                @foreach (var car in Model)
+                {
+                    <div class="item">
+                        <div class="card h-100 shadow-sm border-0 model-card">
+                            <div class="position-relative">
+                                 <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
+       style="height: 180px; object-fit: cover;">
+
+                                <!-- ปุ่ม Favorite -->
+                                <button class="favorite-btn" data-car-id="@car.Id" onclick="toggleFavorite(this)">
+                                    <i
+                                        class="@(ViewBag.FavoriteCarIds != null && ((List<int>)ViewBag.FavoriteCarIds).Contains(car.Id) ? "fa-solid" : "fa-regular") fa-star"></i>
+                                </button>
+
+                                <span
+                                    class="badge bg-dark position-absolute top-0 start-0 m-2 text-uppercase small">Classic</span>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="fw-bold">@car.Brand @car.ModelName</h5>
+                                <p class="text-muted small">@car.Description</p>
+                                <p class="fw-semibold text-primary mt-auto">THB @car.MSRP.ToString("N0")</p>
+                                <div class="d-flex justify-content-between gap-2">
+                                    <a href="@Url.Action("Details", "Cars", new { id = car.Id })"
+                                        class="btn btn-primary btn-sm w-100 mt-2">ดูรายละเอียด</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('#featured-cars-carousel').owlCarousel({
+                        loop: true,
+                        margin: 24,
+                        nav: true,
+                        dots: true,
+                        autoplay: true,
+                        autoplayTimeout: 4500,
+                        smartSpeed: 800,
+                        responsive: {
+                            0: { items: 1 },
+                            768: { items: 2 },
+                            1200: { items: 3 }
+                        }
+                    });
+                });
+            </script>
+        }
+
+        <style>
+            .model-card {
+                border-radius: 12px;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .model-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .owl-carousel .item {
+                padding: 10px;
+            }
+
+            .owl-nav button.owl-prev,
+            .owl-nav button.owl-next {
+                background-color: transparent;
+                border: none;
+                font-size: 2rem;
+                color: #333;
+            }
+
+            .owl-dots .owl-dot span {
+                background: #ccc;
+                width: 12px;
+                height: 12px;
+                display: inline-block;
+                border-radius: 50%;
+                margin: 5px;
+            }
+
+            .owl-dots .owl-dot.active span {
+                background: #333;
+            }
+        </style>
+
+        <!-- In <head> -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+        <!-- Before </body> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- 🆕 New Cars Section -->
+
+        <div class="section-block">
+            <h3>🆕 รถมาใหม่</h3>
+            <div class="row g-4">
+                @foreach (var car in newCars)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card car-card h-100">
+                             <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
+       style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">@car.Brand @car.ModelName</h5>
+                                <p class="card-text">📅 ปี: @car.ReleaseYear</p>
+                                <a href="@Url.Action("Details", "Cars", new { id = car.Id })"
+                                    class="btn btn-outline-dark btn-sm mt-auto w-100">
+                                    ดูรายละเอียด
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-end mt-3">
+                <a href="@Url.Action("New", "Cars")" class="btn btn-link">ดูทั้งหมด</a>
+            </div>
+        </div>
+
+
+
+
+
+        <style>
+            .card.car-card {
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .card.car-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .card-title {
+                font-weight: 600;
+            }
+
+            .owl-carousel .item {
+                padding: 10px;
+            }
+
+            .owl-nav button.owl-prev,
+            .owl-nav button.owl-next {
+                background: transparent;
+                border: none;
+                font-size: 2rem;
+                color: #333;
+            }
+
+            .owl-dots .owl-dot span {
+                background: #ccc;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                margin: 5px;
+            }
+
+            .owl-dots .owl-dot.active span {
+                background: #333;
+            }
+        </style>
+
+        <!-- 🔹 Section 2: เปรียบเทียบรถ (แยกบล็อกชัดเจน) -->
+        <div class="row">
+            <div class="col-12 col-md-10 mx-auto">
+                <div class="p-4 rounded-4 shadow-sm bg-light border">
+                    <div class="text-center mb-4">
+                        <small class="text-muted">Compare</small>
+                        <h2 class="fw-bold">เปรียบเทียบรถ</h2>
+                    </div>
+
+                    <form method="get" asp-action="Compare" asp-controller="Cars"
+                        class="row justify-content-center gx-4 gy-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">เลือกรถคันที่ 1:</label>
+                            <select name="car1Id" class="form-control select2">
+                                <option value="">-- กรุณาเลือก --</option>
+                                @foreach (var item in ViewBag.CarList as SelectList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">เลือกรถคันที่ 2:</label>
+                            <select name="car2Id" class="form-control select2">
+                                <option value="">-- กรุณาเลือก --</option>
+                                @foreach (var item in ViewBag.CarList as SelectList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-dark w-100 fw-bold">Compare</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .model-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-card .badge {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            opacity: 0.9;
+        }
+
+        .shadow-sm {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05) !important;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: "พิมพ์เพื่อค้นหารุ่นรถ...",
+                width: '100%'
+            });
+        });
+    </script>
+
+
+    <div class="section-block">
+        <h3 class="fw-bold mb-4">🚘 รถยนต์ ICE</h3>
+
+        <div class="row g-4">
+            @foreach (var car in Model.Where(c => c.Type == "ICE").Take(3))
+            {
+                <div class="col-md-4">
+                    <div class="card car-card h-100">
+                         <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
+       style="height: 180px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5>@car.Brand @car.ModelName</h5>
+                            <p class="text-muted">@car.Description</p>
+                            <a href="@Url.Action("Details", "Cars", new { id = car.Id })"
+                                class="btn btn-outline-dark btn-sm">ดูรายละเอียด</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-end mt-3">
+            <a href="@Url.Action("ICE", "Cars")" class="btn btn-link">ดูทั้งหมด</a>
+        </div>
+    </div>
+
+
+
+    <!-- 🟢 รถยนต์ Hybrid พร้อมปุ่ม Favorite -->
+    <div class="section-block">
+        <h3 class="fw-bold mb-4">♻️ รถยนต์ Hybrid</h3>
+        <div class="row g-4">
+            @foreach (var car in Model.Where(c => c.Type == "Hybrid").Take(3))
+            {
+                <div class="col-md-4">
+                    <div class="card car-card h-100 position-relative">
+                        <!-- ⭐ ปุ่ม Favorite -->
+                        <button class="favorite-btn" data-car-id="@car.Id" onclick="toggleFavorite(this)">
+                            <i
+                                class="@(ViewBag.FavoriteCarIds != null && ((List<int>)ViewBag.FavoriteCarIds).Contains(car.Id) ? "fa-solid" : "fa-regular") fa-star"></i>
+                        </button>
+
+                         <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
+       style="height: 180px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5>@car.Brand @car.ModelName</h5>
+                            <p class="text-muted">@car.Description</p>
+                            <a href="@Url.Action("Details", "Cars", new { id = car.Id })"
+                                class="btn btn-outline-success btn-sm">ดูรายละเอียด</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-end mt-3">
+            <a href="@Url.Action("Hybrid", "Cars")" class="btn btn-link">ดูทั้งหมด</a>
+        </div>
+    </div>
+
+
+    <div class="section-block">
+        <h3 class="fw-bold mb-4">🔌 รถยนต์ EV</h3>
+        <div class="row g-4">
+            @foreach (var car in Model.Where(c => c.Type == "EV").Take(3))
+            {
+                <div class="col-md-4">
+                    <div class="card car-card h-100 position-relative">
+                        <!-- ⭐ Favorite Button -->
+                        <button class="favorite-btn" data-car-id="@car.Id" onclick="toggleFavorite(this)">
+                            <i
+                                class="@(ViewBag.FavoriteCarIds != null && ((List<int>)ViewBag.FavoriteCarIds).Contains(car.Id) ? "fa-solid" : "fa-regular") fa-star"></i>
+                        </button>
+
+                         <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
+       style="height: 180px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5>@car.Brand @car.ModelName</h5>
+                            <p class="text-muted">@car.Description</p>
+                            <a href="@Url.Action("Details", "Cars", new { id = car.Id })"
+                                class="btn btn-outline-info btn-sm">ดูรายละเอียด</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-end mt-3">
+            <a href="@Url.Action("EV", "Cars")" class="btn btn-link">ดูทั้งหมด</a>
+        </div>
+    </div>
+
+
+
+
+
+</section><!--/.featured-cars-->
+    <section id="favorite-cars" class="favorite-cars" style="margin-top: 50px;">
+        <div class="container">
+            <div class="section-header">
+                <h2>🚗 รถยนต์ที่คุณชื่นชอบ</h2>
+            </div>
+            <div id="favorite-list" class="row">
+                <!-- รถที่ถูกเพิ่มเป็นรายการโปรดจะแสดงที่นี่ -->
+            </div>
+        </div>
+    </section>
+
+    <!--featured-cars end -->

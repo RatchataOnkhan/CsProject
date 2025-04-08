@@ -1,0 +1,26 @@
+﻿---
+File: Views/Cars/Edit.cshtml
+
+@model CombustionCarGuideWeb.Models.Car
+
+<h2>✏️ แก้ไขข้อมูลรถ</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Brand" class="form-label"></label>
+        <input asp-for="Brand" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ModelName" class="form-label"></label>
+        <input asp-for="ModelName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ReleaseYear" class="form-label"></label>
+        <input asp-for="ReleaseYear" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="MSRP" class="form-label"></label>
+        <input asp-for="MSRP" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">บันทึกการเปลี่ยนแปลง</button>
+</form>
