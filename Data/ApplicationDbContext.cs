@@ -1,4 +1,4 @@
-// ✅ ApplicationDbContext.cs (รวม FavoriteCars และ OwnedCars พร้อมกำหนดความสัมพันธ์)
+
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -17,6 +17,7 @@ namespace CombustionCarGuideWeb.Data
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -71,14 +72,11 @@ namespace CombustionCarGuideWeb.Data
             modelBuilder.Entity<Car>().Property(c => c.CostToDrive).HasColumnType("decimal(10,2)");
             modelBuilder.Entity<Car>().Property(c => c.CargoCapacity).HasColumnType("decimal(5,2)");
 
-
-
             // ✅ FavoriteCars: User ↔ Car (Many-to-Many)
             modelBuilder.Entity<Car>()
                 .HasMany(c => c.FavoritedByUsers)
                 .WithMany(u => u.FavoriteCars)
                 .UsingEntity(j => j.ToTable("CarFavorites")); // ชื่อตารางกลาง
-
         }
     }
 }

@@ -5,7 +5,7 @@
 namespace CombustionCarGuideWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class AddOwnerIdToCars_v2 : Migration
+    public partial class AddImageUrlToTrimLevel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

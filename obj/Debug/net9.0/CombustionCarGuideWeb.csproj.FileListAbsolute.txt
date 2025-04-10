@@ -265,7 +265,6 @@ C:\Users\sakor\Desktop\FINAL\combustioncarguide\CombustionCarGuideWeb\obj\Debug\
 C:\Users\sakor\Desktop\FINAL\combustioncarguide\CombustionCarGuideWeb\obj\Debug\net9.0\CombustionCarGuideWeb.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\sakor\Desktop\FINAL\combustioncarguide\CombustionCarGuideWeb\obj\Debug\net9.0\CombustionCarGuideWeb.RazorAssemblyInfo.cache
 C:\Users\sakor\Desktop\FINAL\combustioncarguide\CombustionCarGuideWeb\obj\Debug\net9.0\CombustionCarGuideWeb.RazorAssemblyInfo.cs
-C:\Users\sakor\Desktop\FINAL\combustioncarguide\CombustionCarGuideWeb\obj\Debug\net9.0\CombustionCarGuideWeb.sourcelink.json
 C:\Users\sakor\Desktop\FINAL\combustioncarguide\CombustionCarGuideWeb\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\sakor\Desktop\FINAL\combustioncarguide\CombustionCarGuideWeb\obj\Debug\net9.0\scopedcss\bundle\CombustionCarGuideWeb.styles.css
 C:\Users\sakor\Desktop\FINAL\combustioncarguide\CombustionCarGuideWeb\obj\Debug\net9.0\scopedcss\projectbundle\CombustionCarGuideWeb.bundle.scp.css

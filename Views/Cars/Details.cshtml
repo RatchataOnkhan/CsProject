@@ -4,6 +4,7 @@
     ViewData["Title"] = Model.ModelName;
     var userIdStr = Context.Session.GetString("UserID");
     var isLoggedIn = !string.IsNullOrEmpty(userIdStr);
+    var trims = ViewBag.TrimOptions as List<CombustionCarGuideWeb.Models.Car>;
 }
 
 
@@ -20,17 +21,17 @@
             },
             body: JSON.stringify(carId)
         })
-        .then(res => res.json())
-        .then(data => {
-            const icon = button.querySelector('i');
-            if (data.isFavorite) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid');
-            } else {
-                icon.classList.remove('fa-solid');
-                icon.classList.add('fa-regular');
-            }
-        });
+            .then(res => res.json())
+            .then(data => {
+                const icon = button.querySelector('i');
+                if (data.isFavorite) {
+                    icon.classList.remove('fa-regular');
+                    icon.classList.add('fa-solid');
+                } else {
+                    icon.classList.remove('fa-solid');
+                    icon.classList.add('fa-regular');
+                }
+            });
     }
 </script>
 
@@ -38,16 +39,36 @@
     <div class="row mb-4">
         <div class="col">
             <h2 class="text-primary fw-bold">@Model.ModelName</h2>
+
+            @if (trims != null && trims.Count > 1)
+            {
+                <div class="mt-2 mb-3">
+                    <label class="fw-bold">เลือกรุ่นย่อย (TrimLevels):</label>
+                    <select class="form-select w-auto d-inline-block ms-2" onchange="location = this.value;">
+    @foreach (var trim in trims)
+    {
+        var isSelected = Model.Id == trim.Id ? "selected" : "";
+        var optionText = $"{trim.ModelName} {trim.TrimLevels}";
+        var url = Url.Action("Details", "Cars", new { id = trim.Id });
+        var optionHtml = $"<option value='{url}' {isSelected}>{optionText}</option>";
+        @Html.Raw(optionHtml)
+    }
+                    </select>
+                </div>
+            }
+
+
             <hr />
         </div>
     </div>
+
 
     <div class="row g-4 align-items-start">
         <!-- 🔹 รูปภาพ -->
         <div class="col-lg-6">
             <div class="card shadow-sm border-0">
-                 <img src="@Url.Content(Model.ImageUrl)" alt="@Model.ModelName" class="img-fluid w-100"
-    onerror="this.src='../assets/images/CAR/default.png'" style="height: 180px; object-fit: cover;">
+                <img src="@Url.Content(Model.ImageUrl)" alt="@Model.ModelName" class="img-fluid w-100"
+                    onerror="this.src='../assets/images/CAR/default.png'" style="height: 180px; object-fit: cover;">
 
             </div>
         </div>
@@ -115,21 +136,21 @@
             @{
                 var details = new (string Label, object? Value)[]
                 {
-                    ("🚘 ยี่ห้อ", Model.CarBrand),
-                    ("⚙ ประเภท", Model.Type),
-                    ("🔋 ระบบเครื่องยนต์", Model.EngineType),
-                    ("📅 ปีที่วางจำหน่าย", Model.ReleaseYear),
-                    ("🌍 ประเทศที่ผลิต", Model.Country),
-                    ("🎖 รุ่นย่อย", Model.TrimLevels),
-                    ("⛽ ความประหยัดน้ำมัน", Model.FuelEconomy),
-                    ("🧮 ค่าขับขี่โดยประมาณ", $"{Model.CostToDrive:N2} บาท"),
-                    ("👍 ข้อดี", Model.Pros),
-                    ("👎 ข้อเสีย", Model.Cons),
-                    ("🔧 ระบบเกียร์", Model.TransmissionType),
-                    ("🪑 จำนวนที่นั่ง", $"{Model.SeatingCapacity} คน"),
-                    ("📦 ความจุสัมภาระ", $"{Model.CargoCapacity:N2} ลิตร"),
-                    ("🎵 ระบบ Infotainment", Model.InfotainmentSystem),
-                    ("🛡 ระบบความปลอดภัย", Model.SafetyFeatures)
+                        ("🚘 ยี่ห้อ", Model.CarBrand),
+                        ("⚙ ประเภท", Model.Type),
+                        ("🎖 รุ่นย่อย", Model.TrimLevels),
+                        ("🔋 ระบบเครื่องยนต์", Model.EngineType),
+                        ("📅 ปีที่วางจำหน่าย", Model.ReleaseYear),
+                        ("🌍 ประเทศที่ผลิต", Model.Country),
+                        ("⛽ ความประหยัดน้ำมัน", Model.FuelEconomy),
+                        ("🧮 ค่าขับขี่โดยประมาณ", $"{Model.CostToDrive:N2} บาท"),
+                        ("👍 ข้อดี", Model.Pros),
+                        ("👎 ข้อเสีย", Model.Cons),
+                        ("🔧 ระบบเกียร์", Model.TransmissionType),
+                        ("🪑 จำนวนที่นั่ง", $"{Model.SeatingCapacity} คน"),
+                        ("📦 ความจุสัมภาระ", $"{Model.CargoCapacity:N2} ลิตร"),
+                        ("🎵 ระบบ Infotainment", Model.InfotainmentSystem),
+                        ("🛡 ระบบความปลอดภัย", Model.SafetyFeatures)
                 };
             }
 
@@ -146,6 +167,9 @@
             }
         </div>
     </div>
+
+
+
 
     <!-- 💬 ความคิดเห็น -->
     <div class="mt-5">
@@ -177,7 +201,8 @@
                 <form method="post" asp-controller="Comment" asp-action="AddComment">
                     <input type="hidden" name="CarId" value="@Model.Id" />
                     <div class="mb-3">
-                        <textarea name="Text" class="form-control" rows="3" required placeholder="พิมพ์ความคิดเห็นที่นี่..."></textarea>
+                        <textarea name="Text" class="form-control" rows="3" required
+                        placeholder="พิมพ์ความคิดเห็นที่นี่..."></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">ส่งความคิดเห็น</button>
                 </form>
@@ -203,7 +228,11 @@
         }
     }
 
-    h2, h3, h4, h5, h6 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-family: 'Segoe UI', sans-serif;
     }
 

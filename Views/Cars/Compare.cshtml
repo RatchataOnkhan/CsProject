@@ -40,72 +40,85 @@
     <div class="container animate__animated animate__zoomIn">
         <h3 class="text-center fw-bold mb-5">🔍 เปรียบเทียบรถยนต์</h3>
 
-        <!-- ชื่อรุ่น -->
-        <div class="row text-center mb-4">
-            <div class="col-md-4 offset-md-2">
-                <select class="form-select text-center" disabled>
-                    <option selected>@car1.Brand?.Name @car1.ModelName</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <select class="form-select text-center" disabled>
-                    <option selected>@car2.Brand?.Name @car2.ModelName</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- ภาพรถ -->
-        <div class="row text-center mb-3">
-            <div class="col-md-4 offset-md-2">
-                <img src="@Url.Content(car1.ImageUrl)" alt="@car1.ModelName" class="img-fluid w-100"
-                    onerror="this.src='../assets/images/CAR/default.png'" style="height: 180px; object-fit: cover;">
-            </div>
-            <div class="col-md-4">
-                <img src="@Url.Content(car2.ImageUrl)" alt="@car2.ModelName" class="img-fluid w-100"
-                    onerror="this.src='../assets/images/CAR/default.png'" style="height: 180px; object-fit: cover;">
-            </div>
-        </div>
-
-
-        <!-- ราคา -->
-        <div class="row text-center fw-bold mb-4">
-            <div class="col-md-4 offset-md-2 text-danger">
-                เริ่มต้น: @car1.MSRP.ToString("C0")
-            </div>
-            <div class="col-md-4 text-danger">
-                เริ่มต้น: @car2.MSRP.ToString("C0")
-            </div>
-        </div>
-
-        <!-- รายละเอียด -->
-        <div class="row border-top border-bottom py-4">
-            <div class="col-md-4 offset-md-2 text-center">
-                <p><strong>⚙️ เครื่องยนต์:</strong><br />@car1.EngineType</p>
-                <p><strong>⛽ ความประหยัด:</strong><br />@car1.FuelEconomy</p>
-                <p><strong>🕹️ เกียร์:</strong><br />@car1.TransmissionType</p>
-                <p><strong>🧍‍♂️ ที่นั่ง:</strong><br />@car1.SeatingCapacity</p>
-            </div>
-            <div class="col-md-4 text-center">
-                <p><strong>⚙️ เครื่องยนต์:</strong><br />@car2.EngineType</p>
-                <p><strong>⛽ ความประหยัด:</strong><br />@car2.FuelEconomy</p>
-                <p><strong>🕹️ เกียร์:</strong><br />@car2.TransmissionType</p>
-                <p><strong>🧍‍♂️ ที่นั่ง:</strong><br />@car2.SeatingCapacity</p>
-            </div>
-        </div>
-
-        <!-- ปุ่มดูรายละเอียด -->
-        <div class="row text-center mt-4">
-            <div class="col-md-4 offset-md-2">
-                <a href="@Url.Action("Details", "Cars", new { id = car1.Id })"
-                    class="btn btn-outline-primary w-75">ดูรายละเอียด</a>
-            </div>
-            <div class="col-md-4">
-                <a href="@Url.Action("Details", "Cars", new { id = car2.Id })"
-                    class="btn btn-outline-primary w-75">ดูรายละเอียด</a>
-            </div>
-        </div>
+        <table class="table table-bordered text-center align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>คุณสมบัติ</th>
+                    <th>@car1.Brand?.Name @car1.ModelName</th>
+                    <th>@car2.Brand?.Name @car2.ModelName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>📸 รูปรถ</td>
+                    <td>
+                        <img src="@Url.Content(car1.ImageUrl)" alt="@car1.ModelName" class="img-fluid"
+                             onerror="this.src='../assets/images/CAR/default.png'" style="height: 150px; object-fit: cover;">
+                    </td>
+                    <td>
+                        <img src="@Url.Content(car2.ImageUrl)" alt="@car2.ModelName" class="img-fluid"
+                             onerror="this.src='../assets/images/CAR/default.png'" style="height: 150px; object-fit: cover;">
+                    </td>
+                </tr>
+                <tr>
+                    <td>💵 ราคาเริ่มต้น</td>
+                    <td class="text-danger fw-bold">@car1.MSRP.ToString("C0")</td>
+                    <td class="text-danger fw-bold">@car2.MSRP.ToString("C0")</td>
+                </tr>
+                <tr>
+                    <td>🚗 ประเภทพลังงาน</td>
+                    <td>@car1.Type</td>
+                    <td>@car2.Type</td>
+                </tr>
+                <tr>
+                    <td>⚙️ เครื่องยนต์</td>
+                    <td>@car1.EngineType</td>
+                    <td>@car2.EngineType</td>
+                </tr>
+                <tr>
+                    <td>⛽ ความประหยัด</td>
+                    <td>@car1.FuelEconomy</td>
+                    <td>@car2.FuelEconomy</td>
+                </tr>
+                <tr>
+                    <td>🕹️ ระบบเกียร์</td>
+                    <td>@car1.TransmissionType</td>
+                    <td>@car2.TransmissionType</td>
+                </tr>
+                <tr>
+                    <td>🧍‍♂️ จำนวนที่นั่ง</td>
+                    <td>@car1.SeatingCapacity</td>
+                    <td>@car2.SeatingCapacity</td>
+                </tr>
+                <tr>
+                    <td>📦 ความจุสัมภาระ</td>
+                    <td>@car1.CargoCapacity</td>
+                    <td>@car2.CargoCapacity</td>
+                </tr>
+                <tr>
+                    <td>✅ ข้อดี</td>
+                    <td class="text-start">@Html.Raw(car1.Pros?.Replace("\n", "<br/>"))</td>
+                    <td class="text-start">@Html.Raw(car2.Pros?.Replace("\n", "<br/>"))</td>
+                </tr>
+                <tr>
+                    <td>⚠️ ข้อเสีย</td>
+                    <td class="text-start">@Html.Raw(car1.Cons?.Replace("\n", "<br/>"))</td>
+                    <td class="text-start">@Html.Raw(car2.Cons?.Replace("\n", "<br/>"))</td>
+                </tr>
+                <tr>
+                    <td>🔎 ดูรายละเอียด</td>
+                    <td>
+                        <a href="@Url.Action("Details", "Cars", new { id = car1.Id })" class="btn btn-outline-primary btn-sm">ดูรายละเอียด</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Cars", new { id = car2.Id })" class="btn btn-outline-primary btn-sm">ดูรายละเอียด</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 }
+
 
 
 <style>

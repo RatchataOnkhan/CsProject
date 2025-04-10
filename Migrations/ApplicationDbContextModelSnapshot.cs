@@ -115,9 +115,6 @@ namespace CombustionCarGuideWeb.Migrations
                     b.Property<string>("TransmissionType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TrimLevels")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
@@ -181,6 +178,37 @@ namespace CombustionCarGuideWeb.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("CombustionCarGuideWeb.Models.TrimLevel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("TrimLevels");
                 });
 
             modelBuilder.Entity("CombustionCarGuideWeb.Models.User", b =>
@@ -266,6 +294,17 @@ namespace CombustionCarGuideWeb.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CombustionCarGuideWeb.Models.TrimLevel", b =>
+                {
+                    b.HasOne("CombustionCarGuideWeb.Models.Car", "Car")
+                        .WithMany("TrimLevels")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("CombustionCarGuideWeb.Models.Brand", b =>
                 {
                     b.Navigation("Cars");
@@ -276,13 +315,13 @@ namespace CombustionCarGuideWeb.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Ratings");
+
+                    b.Navigation("TrimLevels");
                 });
 
             modelBuilder.Entity("CombustionCarGuideWeb.Models.User", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("OwnedCars");
 
                     b.Navigation("Ratings");
                 });

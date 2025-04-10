@@ -117,30 +117,40 @@ namespace CombustionCarGuideWeb.Controllers
                 : 0;
 
             ViewBag.AverageRating = averageRating;
+            ViewBag.TrimOptions = _db.Cars
+    .Where(c => c.ModelName == car.ModelName)
+    .ToList();
+
 
             return View(car);
         }
 
-        public IActionResult Search(string modelName)
+        [HttpGet]
+        public IActionResult Search(string modelName, string trimLevel)
         {
-            var modelNames = _db.Cars
-                .AsNoTracking()
-                .Select(c => c.ModelName)
-                .Distinct()
-                .OrderBy(name => name)
-                .ToList();
-
-            ViewBag.ModelNameList = new SelectList(modelNames);
-
-            var cars = _db.Cars.AsNoTracking().AsQueryable();
+            var query = _db.Cars
+                .Include(c => c.Brand)
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(modelName))
             {
-                cars = cars.Where(c => c.ModelName == modelName);
+                query = query.Where(c => c.ModelName.ToLower().Contains(modelName.ToLower()));
             }
 
-            return View(cars.ToList());
+            if (!string.IsNullOrEmpty(trimLevel))
+            {
+                query = query.Where(c => c.TrimLevels.ToLower().Contains(trimLevel.ToLower()));
+            }
+
+            var results = query.ToList();
+
+            // สำหรับสร้าง dropdown
+            ViewBag.ModelNameList = new SelectList(_db.Cars.Select(c => c.ModelName).Distinct());
+            ViewBag.TrimLevelList = new SelectList(_db.Cars.Select(c => c.TrimLevels).Distinct());
+
+            return View("Search", results); // หรือ "Index" ตามที่คุณต้องการ
         }
+
 
         public IActionResult Compare(int? car1Id, int? car2Id)
         {

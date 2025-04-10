@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CombustionCarGuideWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class AddOwnerColumnSafe : Migration
+    public partial class AddTrimLevelTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,12 +51,10 @@ namespace CombustionCarGuideWeb.Migrations
             //         EngineType = table.Column<string>(type: "nvarchar(max)", nullable: true),
             //         MSRP = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
             //         CostToDrive = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-            //         OwnerRating = table.Column<decimal>(type: "decimal(2,1)", nullable: false),
             //         CargoCapacity = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
             //         ReleaseYear = table.Column<int>(type: "int", nullable: false),
             //         Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
             //         Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-            //         TrimLevels = table.Column<string>(type: "nvarchar(max)", nullable: true),
             //         FuelEconomy = table.Column<string>(type: "nvarchar(max)", nullable: true),
             //         Pros = table.Column<string>(type: "nvarchar(max)", nullable: true),
             //         Cons = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -64,8 +62,7 @@ namespace CombustionCarGuideWeb.Migrations
             //         SeatingCapacity = table.Column<int>(type: "int", nullable: false),
             //         InfotainmentSystem = table.Column<string>(type: "nvarchar(max)", nullable: true),
             //         SafetyFeatures = table.Column<string>(type: "nvarchar(max)", nullable: true),
-            //         ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-            //         OwnerId = table.Column<int>(type: "int", nullable: true)
+            //         ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
             //     },
             //     constraints: table =>
             //     {
@@ -76,37 +73,31 @@ namespace CombustionCarGuideWeb.Migrations
             //             principalTable: "Brands",
             //             principalColumn: "Id",
             //             onDelete: ReferentialAction.Cascade);
-            //         table.ForeignKey(
-            //             name: "FK_Cars_Users_OwnerId",
-            //             column: x => x.OwnerId,
-            //             principalTable: "Users",
-            //             principalColumn: "Id",
-            //             onDelete: ReferentialAction.SetNull);
             //     });
 
-            migrationBuilder.CreateTable(
-                name: "CarFavorites",
-                columns: table => new
-                {
-                    FavoriteCarsId = table.Column<int>(type: "int", nullable: false),
-                    FavoritedByUsersId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarFavorites", x => new { x.FavoriteCarsId, x.FavoritedByUsersId });
-                    table.ForeignKey(
-                        name: "FK_CarFavorites_Cars_FavoriteCarsId",
-                        column: x => x.FavoriteCarsId,
-                        principalTable: "Cars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CarFavorites_Users_FavoritedByUsersId",
-                        column: x => x.FavoritedByUsersId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            // migrationBuilder.CreateTable(
+            //     name: "CarFavorites",
+            //     columns: table => new
+            //     {
+            //         FavoriteCarsId = table.Column<int>(type: "int", nullable: false),
+            //         FavoritedByUsersId = table.Column<int>(type: "int", nullable: false)
+            //     },
+            //     constraints: table =>
+            //     {
+            //         table.PrimaryKey("PK_CarFavorites", x => new { x.FavoriteCarsId, x.FavoritedByUsersId });
+            //         table.ForeignKey(
+            //             name: "FK_CarFavorites_Cars_FavoriteCarsId",
+            //             column: x => x.FavoriteCarsId,
+            //             principalTable: "Cars",
+            //             principalColumn: "Id",
+            //             onDelete: ReferentialAction.Cascade);
+            //         table.ForeignKey(
+            //             name: "FK_CarFavorites_Users_FavoritedByUsersId",
+            //             column: x => x.FavoritedByUsersId,
+            //             principalTable: "Users",
+            //             principalColumn: "Id",
+            //             onDelete: ReferentialAction.Cascade);
+            //     });
 
             // migrationBuilder.CreateTable(
             //     name: "Comments",
@@ -163,6 +154,29 @@ namespace CombustionCarGuideWeb.Migrations
             //             onDelete: ReferentialAction.Cascade);
             //     });
 
+            // migrationBuilder.CreateTable(
+            //     name: "TrimLevels",
+            //     columns: table => new
+            //     {
+            //         Id = table.Column<int>(type: "int", nullable: false)
+            //             .Annotation("SqlServer:Identity", "1, 1"),
+            //         CarId = table.Column<int>(type: "int", nullable: false),
+            //         Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+            //         Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+            //         Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+            //         ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+            //     },
+            //     constraints: table =>
+            //     {
+            //         table.PrimaryKey("PK_TrimLevels", x => x.Id);
+            //         table.ForeignKey(
+            //             name: "FK_TrimLevels_Cars_CarId",
+            //             column: x => x.CarId,
+            //             principalTable: "Cars",
+            //             principalColumn: "Id",
+            //             onDelete: ReferentialAction.Cascade);
+            //     });
+
             // migrationBuilder.CreateIndex(
             //     name: "IX_CarFavorites_FavoritedByUsersId",
             //     table: "CarFavorites",
@@ -172,11 +186,6 @@ namespace CombustionCarGuideWeb.Migrations
             //     name: "IX_Cars_BrandId",
             //     table: "Cars",
             //     column: "BrandId");
-
-            // migrationBuilder.CreateIndex(
-            //     name: "IX_Cars_OwnerId",
-            //     table: "Cars",
-            //     column: "OwnerId");
 
             // migrationBuilder.CreateIndex(
             //     name: "IX_Comments_CarId",
@@ -197,6 +206,11 @@ namespace CombustionCarGuideWeb.Migrations
             //     name: "IX_Ratings_UserId",
             //     table: "Ratings",
             //     column: "UserId");
+
+            // migrationBuilder.CreateIndex(
+            //     name: "IX_TrimLevels_CarId",
+            //     table: "TrimLevels",
+            //     column: "CarId");
         }
 
         /// <inheritdoc />
@@ -212,13 +226,16 @@ namespace CombustionCarGuideWeb.Migrations
                 name: "Ratings");
 
             migrationBuilder.DropTable(
+                name: "TrimLevels");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Cars");
 
             migrationBuilder.DropTable(
                 name: "Brands");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

@@ -283,8 +283,9 @@
                             <div class="row align-items-center">
                                 <div class="col-md-7 col-sm-12">
                                     <div class="new-cars-img position-relative">
-                                         <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
-       style="height: 180px; object-fit: cover;">
+                                        <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100"
+                                            onerror="this.src='../assets/images/CAR/default.png'"
+                                            style="height: 180px; object-fit: cover;">
 
                                         <!-- ปุ่มดาว -->
                                         <button class="favorite-btn" data-car-id="@car.Id" onclick="toggleFavorite(this)">
@@ -455,33 +456,83 @@
 
     <div class="container mt-5">
 
-        <!-- 🔍 Search Section -->
-        <div class="section-block">
-            <h3>🔍 ค้นหารถยนต์</h3>
-            <form asp-action="Search" asp-controller="Cars" method="get">
-                <div class="row g-2">
+        <div class="container mt-5">
+            <section id="search-result" class="new-cars">
+                @Html.AntiForgeryToken()
 
-                    <!-- 🔽 dropdown รุ่นรถ (พิมพ์ค้นหาได้) -->
-                    <div class="col-md-10">
-                        <select id="modelName" name="modelName" class="form-control form-control-lg select2">
-                            <option value="">-- เลือกรุ่นรถ --</option>
-                            @if (ViewBag.ModelNameList != null)
+                <div class="container mt-navbar">
+                    <h2 class="text-primary fw-bold mb-4">🔍 ผลการค้นหา</h2>
+
+                    <!-- 🔍 แบบฟอร์มค้นหา -->
+                    <form asp-action="Search" asp-controller="Cars" method="get" class="mb-4">
+                        <div class="row g-2">
+                            <div class="col-md-5">
+                                <input type="text" name="modelName" class="form-control form-control-lg"
+                                    placeholder="พิมพ์ชื่อรุ่นรถ เช่น Civic, Altis, Fortuner..." />
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" name="trimLevel" class="form-control form-control-lg"
+                                    placeholder="พิมพ์ Trim เช่น RS, Hybrid, Turbo..." />
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-outline-primary btn-lg w-100">ค้นหา</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- 🔎 แสดงผลการค้นหา -->
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-warning text-center">
+                            ไม่พบรถยนต์ที่ตรงกับคำค้น
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row g-4">
+                            @foreach (var car in Model)
                             {
-                                foreach (var item in ViewBag.ModelNameList as SelectList)
-                                {
-                                    <option value="@item.Value">@item.Text</option>
-                                }
-                            }
-                        </select>
-                    </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="border rounded-3 shadow-sm h-100 d-flex flex-column bg-white p-3 car-box">
 
-                    <!-- 🔍 ปุ่มค้นหา -->
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-outline-primary btn-lg w-100">ค้นหา</button>
-                    </div>
+                                        <!-- 🔧 รูปภาพรถ -->
+                                        <div class="position-relative">
+                                            <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100"
+                                                onerror="this.src='../assets/images/CAR/default.png'"
+                                                style="height: 180px; object-fit: cover;">
+                                        </div>
+
+                                        <!-- ⭐ ปุ่ม Favorite -->
+                                        <button class="favorite-btn" data-car-id="@car.Id" onclick="toggleFavorite(this)">
+                                            <i class="@(ViewBag.FavoriteCarIds != null && ((List<int>)ViewBag.FavoriteCarIds).Contains(car.Id) 
+                                                                                                   ? "fa-solid" : "fa-regular") fa-star"></i>
+                                </button>
+
+                                        <!-- 📝 รายละเอียดรถ -->
+                                        <div class="mt-3">
+                                            <h5 class="bg-dark text-white p-2 mb-2 text-left">
+                                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">ใหม่</span>
+                                                @car.Brand @car.ModelName
+                                            </h5>
+                                            <p class="small text-muted">
+                                                ปี: <strong>@car.ReleaseYear</strong><br />
+                                                ราคา: <strong>@car.MSRP.ToString("N0")</strong> บาท<br />
+                                            </p>
+                                            <a href="@Url.Action("Details", "Cars", new { id = car.Id })"
+                                                class="btn btn-outline-primary btn-sm mt-auto w-100">
+                                                ดูรายละเอียด
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                                }
+                        </div>
+                    }
                 </div>
-            </form>
+            </section>
         </div>
+
+
 
 
 
@@ -496,8 +547,9 @@
                     <div class="item">
                         <div class="card h-100 shadow-sm border-0 model-card">
                             <div class="position-relative">
-                                 <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
-       style="height: 180px; object-fit: cover;">
+                                <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100"
+                                    onerror="this.src='../assets/images/CAR/default.png'"
+                                    style="height: 180px; object-fit: cover;">
 
                                 <!-- ปุ่ม Favorite -->
                                 <button class="favorite-btn" data-car-id="@car.Id" onclick="toggleFavorite(this)">
@@ -613,8 +665,9 @@
                 {
                     <div class="col-md-6 col-lg-4">
                         <div class="card car-card h-100">
-                             <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
-       style="height: 180px; object-fit: cover;">
+                            <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100"
+                                onerror="this.src='../assets/images/CAR/default.png'"
+                                style="height: 180px; object-fit: cover;">
                             <div class="card-body">
                                 <h5 class="card-title">@car.Brand @car.ModelName</h5>
                                 <p class="card-text">📅 ปี: @car.ReleaseYear</p>
@@ -760,8 +813,8 @@
             {
                 <div class="col-md-4">
                     <div class="card car-card h-100">
-                         <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
-       style="height: 180px; object-fit: cover;">
+                        <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100"
+                            onerror="this.src='../assets/images/CAR/default.png'" style="height: 180px; object-fit: cover;">
                         <div class="card-body">
                             <h5>@car.Brand @car.ModelName</h5>
                             <p class="text-muted">@car.Description</p>
@@ -794,8 +847,8 @@
                                 class="@(ViewBag.FavoriteCarIds != null && ((List<int>)ViewBag.FavoriteCarIds).Contains(car.Id) ? "fa-solid" : "fa-regular") fa-star"></i>
                         </button>
 
-                         <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
-       style="height: 180px; object-fit: cover;">
+                        <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100"
+                            onerror="this.src='../assets/images/CAR/default.png'" style="height: 180px; object-fit: cover;">
                         <div class="card-body">
                             <h5>@car.Brand @car.ModelName</h5>
                             <p class="text-muted">@car.Description</p>
@@ -825,8 +878,8 @@
                                 class="@(ViewBag.FavoriteCarIds != null && ((List<int>)ViewBag.FavoriteCarIds).Contains(car.Id) ? "fa-solid" : "fa-regular") fa-star"></i>
                         </button>
 
-                         <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100" onerror="this.src='../assets/images/CAR/default.png'"
-       style="height: 180px; object-fit: cover;">
+                        <img src="@Url.Content(car.ImageUrl)" alt="@car.ModelName" class="img-fluid w-100"
+                            onerror="this.src='../assets/images/CAR/default.png'" style="height: 180px; object-fit: cover;">
                         <div class="card-body">
                             <h5>@car.Brand @car.ModelName</h5>
                             <p class="text-muted">@car.Description</p>

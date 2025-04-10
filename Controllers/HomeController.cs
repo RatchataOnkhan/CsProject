@@ -108,10 +108,17 @@ namespace CombustionCarGuideWeb.Controllers
                 return View(car);
             }
 
+            [HttpGet]
+            public IActionResult Search(string modelName)
+            {
+                var results = _db.Cars
+                    .Include(c => c.Brand)
+                    .Where(c => string.IsNullOrEmpty(modelName) || c.ModelName.ToLower().Contains(modelName.ToLower()))
+                    .ToList();
 
-
-
-
+                ViewBag.ModelNameList = new SelectList(_db.Cars.Select(c => c.ModelName).Distinct());
+                return View("Search", results);
+            }
 
             [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CombustionCarGuideWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b59c27a5b22e3a6810454e774bd9dca1fa33bda")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13646b40a3fa15cb056e6dc1ee0b78f1800fe37a")]
 [assembly: System.Reflection.AssemblyProductAttribute("CombustionCarGuideWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CombustionCarGuideWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

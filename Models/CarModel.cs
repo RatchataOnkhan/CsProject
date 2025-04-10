@@ -54,5 +54,7 @@ namespace CombustionCarGuideWeb.Models
         // ⭐ ความสัมพันธ์กับความคิดเห็นและคะแนน
         public IEnumerable<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Rating>? Ratings { get; set; }
+
+
     }
 }
